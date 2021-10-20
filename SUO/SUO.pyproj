@@ -5,6 +5,7 @@
     <Name>SUO</Name>
     <RootNamespace>SUO</RootNamespace>
     <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
+    <WebBrowserPort>8000</WebBrowserPort>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -16,7 +17,7 @@
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
-    <WebBrowserUrl>http://192.168.1.37:8000</WebBrowserUrl>
+    <WebBrowserUrl>http://localhost</WebBrowserUrl>
     <LaunchProvider>Django launcher</LaunchProvider>
     <DjangoSettingsModule>SUO.settings</DjangoSettingsModule>
     <OutputPath>.</OutputPath>
