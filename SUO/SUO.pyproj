@@ -16,11 +16,13 @@
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
-    <WebBrowserUrl>http://localhost</WebBrowserUrl>
+    <WebBrowserUrl>http://192.168.1.37:8000</WebBrowserUrl>
     <LaunchProvider>Django launcher</LaunchProvider>
     <DjangoSettingsModule>SUO.settings</DjangoSettingsModule>
     <OutputPath>.</OutputPath>
     <SuppressCollectPythonCloudServiceFiles>true</SuppressCollectPythonCloudServiceFiles>
+    <PythonRunWebServerCommandType />
+    <PythonDebugWebServerCommandType />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
