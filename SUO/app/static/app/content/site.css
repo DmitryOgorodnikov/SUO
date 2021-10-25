@@ -40,3 +40,42 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+/*Кастомные стили*/
+.login-form {
+    width: 280px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.login {
+    width: 300px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.index-main {
+    width:300px;
+    height:300px;
+    margin-top:300px;
+}
+
+.index-center {
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
+.text-center {
+    text-align: center;
+}
+
+.btn-custom {
+    display: block;
+    margin: auto;
+}
+
+.login-div {
+    height: 250px;
+}

@@ -2,38 +2,34 @@
 
 {% block content %}
 
-<div>
-    <div>
-        <img src="../app/static/img/Russian_Post.png">
-    </div>
-    <div class="login-div">
+<h2>{{ title }}</h2>
+<div class="index-center">
+    <div class="col-md-8">
         <section id="loginForm">
             <form action="." method="post" class="form-horizontal">
                 {% csrf_token %}
-                <div class="login-form">
-                <h4 class="text-center">Вход</h4>
-                </div>
+                <h4>Используйте аккаунт для входа</h4>
                 <hr />
-                <div class="login-form">
-                    <label for="id_username" class="col-md-2 control-label">Логин</label>
+                <div>
+                    <label for="id_username" class="col-md-2 control-label">User name</label>
                     <div class="login">
                         {{ form.username }}
                     </div>
                 </div>
-                <div class="login-form">
-                    <label for="id_password" class="col-md-2 control-label">Пароль</label>
-                    <div class="login">
+                <div class="form-group">
+                    <label for="id_password" class="col-md-2 control-label">Password</label>
+                    <div class="col-md-10">
                         {{ form.password }}
                     </div>
                 </div>
-                <div class="login-form">
-                    <div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-10">
                         <input type="hidden" name="next" value="/" />
-                        <input type="submit" value="Log in" class="btn btn-default btn-custom" />
+                        <input type="submit" value="Log in" class="btn btn-default" />
                     </div>
                 </div>
                 {% if form.errors %}
-                <p class="validation-summary-errors">Введите корретный логин и пароль.</p>
+                <p class="validation-summary-errors">Please enter a correct user name and password.</p>
                 {% endif %}
             </form>
         </section>

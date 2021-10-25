@@ -1,7 +1,7 @@
 """
 Definition of views.
 """
-
+# coding: utf8
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
