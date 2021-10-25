@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'SUO',
 ]
 
 # Middleware framework
@@ -82,6 +83,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'SUOwner',
         'PASSWORD': '1234',
+        'USE_TZ': 'False',
     }
 }
 
