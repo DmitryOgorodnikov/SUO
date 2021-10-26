@@ -18,28 +18,37 @@ def home(request):
         }
     )
 
-def contact(request):
+def statistics(request):
     """Renders the contact page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/contact.html',
+        'app/statistics.html',
         {
-            'title':'Contact',
-            'message':'Your contact page.',
             'year':datetime.now().year,
         }
     )
 
-def about(request):
-    """Renders the about page."""
+def windows(request):
+    """Renders the windows page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
-        'app/about.html',
+        'app/windows.html',
         {
-            'title':'About',
-            'message':'Your application description page.',
+            'title':'Окна',
+            'year':datetime.now().year,
+        }
+    )
+
+def operator(request):
+    """Renders the operator page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/operator.html',
+        {
+            'title':'Оператор',
             'year':datetime.now().year,
         }
     )

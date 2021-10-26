@@ -1,0 +1,26 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="statistics-div">
+    <div class="statistics-div-chld">
+        <button class="tablinks" onclick="open(event, 'London')">London</button>
+        <button class="tablinks" onclick="open(event, 'Paris')">Paris</button>
+    </div>
+    <div class="statistics-div-chld-two">
+        <h3>London</h3>
+    </div>
+    <div class="statistics-div-chld-two">
+        <h3>Paris</h3>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+
+    {% load staticfiles %}
+<script src="{% static 'app/scripts/statistics.open.js' %}"></script>
+
+{% endblock %}
