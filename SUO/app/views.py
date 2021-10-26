@@ -1,10 +1,21 @@
 """
 Definition of views.
 """
-# coding: utf8
 from datetime import datetime
 from django.shortcuts import render
 from django.http import HttpRequest
+from .models import Tickets
+
+from django_tables2 import SingleTableView
+
+from .models import Tickets
+from .tables import TicketsTable
+
+
+class TicketsListView(SingleTableView):
+    model = Tickets
+    table_class = TicketsTable
+    template_name = 'app/statistics.html'
 
 def home(request):
     """Renders the home page."""
@@ -18,16 +29,6 @@ def home(request):
         }
     )
 
-def statistics(request):
-    """Renders the contact page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/statistics.html',
-        {
-            'year':datetime.now().year,
-        }
-    )
 
 def windows(request):
     """Renders the windows page."""
@@ -49,6 +50,18 @@ def operator(request):
         'app/operator.html',
         {
             'title':'Оператор',
+            'year':datetime.now().year,
+        }
+    )
+
+def settings(request):
+    """Renders the operator page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/settings.html',
+        {
+            'title':'Настройки СУО',
             'year':datetime.now().year,
         }
     )

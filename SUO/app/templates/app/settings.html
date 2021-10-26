@@ -1,0 +1,17 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<div class="windows-div">
+    <div class="settings-div-chld">
+        <p class="index-center"><a class="btn btn-default settings-btn" href="{% url 'windows' %}">Зайти на окно</a></p>
+        <p class="index-center"><a class="btn btn-default settings-btn" href="{% url 'statistics' %}">Статистика</a></p>
+        <p class="index-center"><a class="btn btn-default settings-btn" href="{% url 'settings' %}">Настройки СУО</a></p>
+    </div>
+
+    <div class="settings-div-chld-two">
+
+    </div>
+</div>
+
+{% endblock %}

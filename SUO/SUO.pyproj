@@ -36,6 +36,9 @@
   <ItemGroup>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
+    <Compile Include="app\tables.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\tests.py" />
     <Compile Include="app\views.py" />
     <Compile Include="app\__init__.py" />
@@ -65,6 +68,7 @@
     </Content>
     <Content Include="app\static\app\scripts\statistics.open.js" />
     <Content Include="app\templates\app\operator.html" />
+    <Content Include="app\templates\app\settings.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />

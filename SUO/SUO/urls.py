@@ -7,11 +7,23 @@ from django.urls import path
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
+from app.views import TicketsListView
 
 
 urlpatterns = [
     path('', views.home, name='home'),
-    path('statistics/', views.statistics, name='statistics'),
+    path('settings/', views.settings, name='settings'),
+    path('statistics/', 
+         TicketsListView.as_view
+         (
+             template_name='app/statistics.html',
+             extra_context=
+             {
+                'title':'Статистика',
+                'year':datetime.now().year,
+             }
+         ),
+         name='statistics'),
     path('windows/login/', views.windows, name='windows'),
     path('windows/operator/', views.operator, name='operator'),
     path('login/',
