@@ -172,7 +172,7 @@ input[type="checkbox"].input-validation-error {
     bottom: 0%;
     margin-bottom: 20px;
     left: 30%;
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     border-width: 2px;
     border-color: #ccc;
     border: 1px solid rgba(0,0,0,.125);
@@ -181,7 +181,124 @@ input[type="checkbox"].input-validation-error {
     padding-top: 200px;
 }
 
-.settings-btn{
-    width:97%;
-    text-align:left;
+.settings-div-chld-3 {
+    width: 100%;
+    height: 5%;
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    margin-bottom: 0px;
+    left: 0%;
+    background-color: #f8f9fa;
+    border-width: 2px;
+    border-color: #ccc;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.settings-div-chld-4 {
+    width: 100%;
+    height: 10%;
+    position: absolute;
+    top: 0%;
+    bottom: 0%;
+    margin-bottom: 0px;
+    left: 0%;
+    background-color: #f8f9fa;
+    border-width: 2px;
+    border-color: #ccc;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.settings-btn {
+    width: 97%;
+    text-align: left;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.settings-btn:focus {
+    outline: thin dotted #333;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+.settings-btn:hover,
+.settings-btn:focus {
+    color: #333333;
+    text-decoration: none;
+    background-color: #ebebeb;
+    border-color: #adadad;
+}
+
+.settings-btn:active,
+.settings-btn.active {
+    background-image: none;
+    outline: 0;
+    -webkit-box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    color: #333333;
+    background-color: #ebebeb;
+    border-color: #adadad;
+}
+
+.settings-btn.disabled,
+.settings-btn[disabled],
+fieldset[disabled] .settings-btn {
+    pointer-events: none;
+    cursor: not-allowed;
+    opacity: 0.65;
+    filter: alpha(opacity=65);
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.btn-def {
+    color: #333333;
+    background-color: #ebebeb;
+    border-color: #adadad;
+}
+
+.settings-btn-cr {
+    width: 30%;
+    text-align: center;
+    display: inline-block;
+    padding: 3px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
 }

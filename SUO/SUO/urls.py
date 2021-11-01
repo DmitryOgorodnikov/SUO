@@ -13,6 +13,8 @@ from app.views import TicketsListView
 urlpatterns = [
     path('', views.home, name='home'),
     path('settings/', views.settings, name='settings'),
+    path('settings/window/', views.settingsw, name='settingsw'),
+    path('settings/ops/', views.settingso, name='settingso'),
     path('statistics/', 
          TicketsListView.as_view
          (

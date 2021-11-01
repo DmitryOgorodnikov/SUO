@@ -4,13 +4,19 @@
 
 <div class="windows-div">
     <div class="settings-div-chld">
-        <p class="index-center"><a class="btn btn-default settings-btn" href="{% url 'windows' %}">Зайти на окно</a></p>
-        <p class="index-center"><a class="btn btn-default settings-btn" href="{% url 'statistics' %}">Статистика</a></p>
-        <p class="index-center"><a class="btn btn-default settings-btn" href="{% url 'settings' %}">Настройки СУО</a></p>
+        <p class="index-center"><a class="settings-btn btn-def" href="{% url 'settings' %}">Учетные записи</a></p>
+        <p class="index-center"><a class="settings-btn" href="{% url 'settingsw' %}">Окна</a></p>
+        <p class="index-center"><a class="settings-btn" href="{% url 'settingso' %}">ОПС</a></p>
     </div>
-
     <div class="settings-div-chld-two">
+        <div class="settings-div-chld-4">
 
+        </div>
+        <div class="settings-div-chld-3">
+            <button class="settings-btn settings-btn-cr">Создать</button>
+            <button class="settings-btn settings-btn-cr">Настроить</button>
+            <button class="settings-btn settings-btn-cr">Удалить</button>
+        </div>
     </div>
 </div>
 

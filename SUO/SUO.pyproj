@@ -68,6 +68,8 @@
     </Content>
     <Content Include="app\static\app\scripts\statistics.open.js" />
     <Content Include="app\templates\app\operator.html" />
+    <Content Include="app\templates\app\settingso.html" />
+    <Content Include="app\templates\app\settingsw.html" />
     <Content Include="app\templates\app\settings.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />

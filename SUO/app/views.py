@@ -10,6 +10,7 @@ from django_tables2 import SingleTableView
 
 from .models import Tickets
 from .tables import TicketsTable
+from django.contrib.auth.models import User, Group 
 
 
 class TicketsListView(SingleTableView):
@@ -61,7 +62,31 @@ def settings(request):
         request,
         'app/settings.html',
         {
-            'title':'Настройки СУО',
+            'title':'Операторы',
+            'year':datetime.now().year,
+        }
+    )
+
+def settingsw(request):
+    """Renders the operator page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/settingsw.html',
+        {
+            'title':'Окна',
+            'year':datetime.now().year,
+        }
+    )
+
+def settingso(request):
+    """Renders the operator page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/settingso.html',
+        {
+            'title':'ОПС',
             'year':datetime.now().year,
         }
     )
