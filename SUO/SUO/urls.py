@@ -7,7 +7,7 @@ from django.urls import path
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
-from app.views import TicketsListView
+from app.views import TicketsListView, TicketsListCentral
 
 
 urlpatterns = [
@@ -15,6 +15,19 @@ urlpatterns = [
     path('settings/', views.settings, name='settings'),
     path('settings/window/', views.settingsw, name='settingsw'),
     path('settings/ops/', views.settingso, name='settingso'),
+    path('kiosk/', views.kiosk, name='kiosk'),
+    path('kiosk/', views.kbutton, name='kbutton'),
+    path('tickets/', 
+         TicketsListCentral.as_view
+         (
+             template_name='app/tickets.html',
+             extra_context=
+             {
+                'title':'Талоны',
+                'year':datetime.now().year,
+             }
+         ),
+         name='tickets'),
     path('statistics/', 
          TicketsListView.as_view
          (

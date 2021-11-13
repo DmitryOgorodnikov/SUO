@@ -6,6 +6,7 @@
     <RootNamespace>SUO</RootNamespace>
     <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
     <WebBrowserPort>8000</WebBrowserPort>
+    <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -63,14 +64,18 @@
     <Folder Include="SUO\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\app\fonts\helveticaneuecyr-roman.ttf" />
     <Content Include="app\static\app\img\Russian_Post.png">
       <Publish>False</Publish>
     </Content>
+    <Content Include="app\static\app\scripts\kiosk.js" />
     <Content Include="app\static\app\scripts\statistics.open.js" />
     <Content Include="app\templates\app\operator.html" />
     <Content Include="app\templates\app\settingso.html" />
     <Content Include="app\templates\app\settingsw.html" />
     <Content Include="app\templates\app\settings.html" />
+    <Content Include="app\templates\app\kiosk.html" />
+    <Content Include="app\templates\app\tickets.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
