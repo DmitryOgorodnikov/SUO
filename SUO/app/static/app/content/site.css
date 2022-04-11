@@ -349,7 +349,9 @@ fieldset[disabled] .settings-btn {
 }
 
 .kiosk-h {
+    position: absolute;
     text-align: center;
+    margin-left: 30%;
     color: #1331ff;
     font-family: 'abc';
     font-weight: bold;
@@ -379,4 +381,8 @@ fieldset[disabled] .settings-btn {
 @font-face {
     font-family: 'abc';
     src: local('Abc'), url('../static/fonts/helveticaneuecyr-roman.ttf') format("truetype");
+}
+
+.form-div-register{
+    height: 300px;
 }

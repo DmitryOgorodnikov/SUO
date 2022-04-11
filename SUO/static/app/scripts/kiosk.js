@@ -1,6 +1,6 @@
 $('#buttonSend').click(function () {
     $.ajax({
-        url: "{% url 'kbutton' %}",
+        url: "kbutton",
         method: 'POST', // or another (GET), whatever you need
         data: {
             click: true
@@ -11,3 +11,4 @@ $('#buttonSend').click(function () {
         }
     });
 });
+var csrftoken = $.cookie('csrftoken');

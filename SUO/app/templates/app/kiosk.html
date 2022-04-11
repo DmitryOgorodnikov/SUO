@@ -15,12 +15,11 @@
 </head>
 
 <body class="kiosk-body">
-    <h4 class="kiosk-h">ПОЧТА РОССИИ     999999</h4>
+    <h4 class="kiosk-h">ПОЧТА РОССИИ     999999                            10:34 27 ноября 2021</h4>
     <div class="kiosk-div settings-btn" id="buttonSend">
-        <input type="button" id="buttonSend"> 
-        Отправить
+         Отправить
     </div>
-    <div class="kiosk-div kiosk-div-bottom settings-btn">
+    <div class="kiosk-div kiosk-div-bottom settings-btn" id="buttonReceive">
         Получить
     </div>
 
@@ -30,6 +29,7 @@
     {% block scripts %}
         {% load staticfiles %}
     <script src="{% static 'app/scripts/kiosk.js' %}"></script>
+    <script src = "{% static 'app/scripts/myset.js'%}"> </script>
     {% endblock %}
 </body>
 </html>

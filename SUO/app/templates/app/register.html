@@ -1,0 +1,23 @@
+{% extends "app/layout.html" %}
+
+{% block content %}
+
+<h1 class="text-center">Создание нового аккаунта</h1>
+<p class="text-center">Пожалуйста, зарегистрируйте нового пользователя, используя нижеуказанную форму</p>
+
+<form action="." method="post" class="form-div-register">
+    <div class="login-div login-form login">
+        {{ user_form.as_p }}
+        <p><input type="submit" value="Создать аккаунт" class="btn btn-default btn-custom"></p>
+    </div>
+    {% csrf_token %}
+</form>
+
+{% endblock %}
+
+{% block scripts %}
+
+    {% load staticfiles %}
+<script src="{% static 'app/scripts/jquery.validate.min.js' %}"></script>
+
+{% endblock %}

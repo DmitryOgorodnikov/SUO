@@ -45,6 +45,9 @@
     <Compile Include="app\__init__.py" />
     <Compile Include="app\migrations\__init__.py" />
     <Compile Include="manage.py" />
+    <Compile Include="SUO\resources.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="SUO\__init__.py" />
     <Compile Include="SUO\settings.py" />
     <Compile Include="SUO\urls.py" />
@@ -70,6 +73,8 @@
     </Content>
     <Content Include="app\static\app\scripts\kiosk.js" />
     <Content Include="app\static\app\scripts\statistics.open.js" />
+    <Content Include="app\static\app\scripts\myset.js" />
+    <Content Include="app\templates\app\register.html" />
     <Content Include="app\templates\app\operator.html" />
     <Content Include="app\templates\app\settingso.html" />
     <Content Include="app\templates\app\settingsw.html" />

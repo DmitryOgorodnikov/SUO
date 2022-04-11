@@ -1,22 +1,29 @@
 """
 Definition of urls for SUO.
 """
-
 from datetime import datetime
-from django.urls import path
+from django.urls import path, include
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
-from app.views import TicketsListView, TicketsListCentral
+from app.views import TicketsListView, TicketsListCentral, register
+from tastypie.api import Api
+from SUO.resources import TicketsResource, WindowsResource
 
+v1_api = Api(api_name='v1')
+v1_api.register(TicketsResource())
+#v1_api.register(WindowsResource())
+#tickets_resource = TicketsResource()
 
 urlpatterns = [
+    path('api/', include(v1_api.urls), name ='Талоны'),
     path('', views.home, name='home'),
     path('settings/', views.settings, name='settings'),
+    path('register/',views.register,name='register'),
     path('settings/window/', views.settingsw, name='settingsw'),
     path('settings/ops/', views.settingso, name='settingso'),
     path('kiosk/', views.kiosk, name='kiosk'),
-    path('kiosk/', views.kbutton, name='kbutton'),
+    path('kiosk/kbutton', views.kbutton, name='kbutton'),
     path('tickets/', 
          TicketsListCentral.as_view
          (
