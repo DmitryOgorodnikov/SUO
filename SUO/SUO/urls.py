@@ -59,9 +59,8 @@ urlpatterns = [
                  'title': 'Вход',
                  'year' : datetime.now().year,
              }
-
          ),
          name='login'),
-    path('logout/', LogoutView.as_view(next_page='login/'), name='logout'),
+    path('logout/', LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
 ]

@@ -2,6 +2,20 @@
 
 {% block content %}
 
+<nav class="nav-bar nav-bar-w">
+    <div>
+        <div class="nav-block1">
+            <p class="index-center">Окно ?</p>
+        </div>
+        <div class="nav-block1 nav-block2 nav-block2-w">
+            <p class="index-center">{{user.get_username}}</p>
+        </div>
+        <div class="nav-block1 nav-block3">
+            <a class="btn btn-default btn-index" href="{% url 'logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+
 <div class="windows-div">
     <div class="windows-div-chld">
         <h1>Выберите окно</h1>
@@ -9,6 +23,9 @@
             <option>Окно 1</option>
             <option>Окно 2</option>
         </select>
+        <div class="windows-div-chld2">
+            <a class="windows-btn" href="{% url 'operator' %}">Выбрать</a>
+        </div>
     </div>
 </div>
 

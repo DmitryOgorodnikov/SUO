@@ -4,13 +4,33 @@
 
 {% block content %}
 
-<div class="statistics-div">
-    <div class="statistics-div-chld">
-        <p>Статистика по талонам</p>
+<nav class="nav-bar">
+    <div>
+        <div class="nav-block1">
+            <p class="index-center">Статистика | ОПС XXXXXX</p>
+        </div>
+        <div class="nav-block1 nav-block2">
+            <p class="index-center">{{user.get_username}}</p>
+        </div>
+        <div class="nav-block1 nav-block3">
+            <a class="btn btn-default btn-index" href="{% url 'logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
+<div class="windows-div">
+    <div class="settings-div-chld">
+        <p class="index-center"><a class="settings-btn btn-def" href="{% url 'statistics' %}"> Талоны </a></p>
+        <p class="index-center"><a class="settings-btn" href="{% url 'statistics' %}">Окна</a></p>
+        <p class="index-center"><a class="settings-btn" href="{% url 'home' %}">Вернуться</a></p>
     </div>
     <div class="statistics-div-chld-two">
         {% render_table table %}
     </div>
 </div>
+
+ <!-- <div class="statistics-div">
+    <div class="statistics-div-chld-two">
+    </div>
+</div> -->
 
 {% endblock %}

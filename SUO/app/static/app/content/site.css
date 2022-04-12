@@ -1,5 +1,5 @@
 body {
-    padding-top: 50px;
+    padding-top: 0px;
     padding-bottom: 20px;
 }
 
@@ -107,6 +107,52 @@ input[type="checkbox"].input-validation-error {
     padding-top: 200px;
 }
 
+.windows-div-chld2 {
+    bottom: 0%;
+    margin: auto;
+    margin-bottom: 20px;
+    left: 15%;
+    text-align: center;
+    padding-top: 25px;
+}
+
+.windows-btn {
+    width: 100px;
+    text-align: center;
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.windows-btn:focus {
+    outline: thin dotted #333;
+    outline: 5px auto -webkit-focus-ring-color;
+    outline-offset: -2px;
+}
+
+.windows-btn:hover,
+.windows-btn:focus {
+    color: #333333;
+    text-decoration: none;
+    background-color: #ebebeb;
+    border-color: #adadad;
+}
 
 .statistics-div {
     height: 610px;
@@ -131,13 +177,13 @@ input[type="checkbox"].input-validation-error {
 }
 
 .statistics-div-chld-two {
-    width: 100%;
+    width: 70%;
     height: 580px;
     position: absolute;
-    top: 40px;
+    top: 13px;
     bottom: 0%;
     margin-bottom: 20px;
-    left: 0%;
+    left: 30%;
     background-color: #f8f9fa;
     border-width: 2px;
     border-color: #ccc;
@@ -149,7 +195,7 @@ input[type="checkbox"].input-validation-error {
 
 .settings-div-chld {
     width: 25%;
-    height: 170px;
+    height: 200px;
     position: absolute;
     top: 2%;
     bottom: 0%;
@@ -385,4 +431,52 @@ fieldset[disabled] .settings-btn {
 
 .form-div-register{
     height: 300px;
+}
+
+.nav-bar {
+    box-sizing: border-box;
+    height: 50px;
+    width: 100%;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.nav-block1 {
+    float: left;
+    margin-left: 5%;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    display: block;
+    width: 30%;
+    height: 34px;
+}
+.nav-block1 p {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    margin-left: 2%;
+}
+
+.nav-block2 {
+    float: left;
+    margin-left: 48%;
+    width: auto;
+}
+
+.nav-block3 {
+    float: left;
+    margin-left: 1%;
+    width: 10%;
+}
+
+.nav-bar-w {
+    width: 60%;
+    margin-left: 20%;
+}
+
+.nav-block2-w {
+    margin-left: 40%;
+}
+
+.margin100 {
+    margin-top: 100px
 }

@@ -2,11 +2,25 @@
 
 {% block content %}
 
+<nav class="nav-bar">
+    <div>
+        <div class="nav-block1">
+            <p class="index-center">Настройки СУО | ОПС XXXXXX</p>
+        </div>
+        <div class="nav-block1 nav-block2">
+            <p class="index-center">{{user.get_username}}</p>
+        </div>
+        <div class="nav-block1 nav-block3">
+            <a class="btn btn-default btn-index" href="{% url 'logout' %}">Выйти</a>
+        </div>
+    </div>
+</nav>
 <div class="windows-div">
     <div class="settings-div-chld">
         <p class="index-center"><a class="settings-btn" href="{% url 'settings' %}">Учетные записи</a></p>
         <p class="index-center"><a class="settings-btn btn-def" href="{% url 'settingsw' %}">Окна</a></p>
         <p class="index-center"><a class="settings-btn" href="{% url 'settingso' %}">ОПС</a></p>
+        <p class="index-center"><a class="settings-btn" href="{% url 'home' %}">Вернуться</a></p>
     </div>
 
     <div class="settings-div-chld-two">
