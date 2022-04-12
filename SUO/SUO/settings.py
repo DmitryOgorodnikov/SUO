@@ -27,6 +27,8 @@ SECRET_KEY = 'a24e5ce3-4173-49de-ba03-824fd876d6dd'
 DEBUG = True
 
 ALLOWED_HOSTS = ['192.168.1.38','localhost','10.0.2.2']
+LOGIN_URL = 'login/'
+LOGIN_REDIRECT_URL = '/'
 
 # Application references
 # https://docs.djangoproject.com/en/2.1/ref/settings/#std:setting-INSTALLED_APPS

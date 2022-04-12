@@ -52,14 +52,16 @@ urlpatterns = [
          LoginView.as_view
          (
              template_name='app/login.html',
+             redirect_authenticated_user=True,
              authentication_form=forms.BootstrapAuthenticationForm,
              extra_context=
              {
                  'title': 'Вход',
                  'year' : datetime.now().year,
              }
+
          ),
          name='login'),
-    path('logout/', LogoutView.as_view(next_page='/'), name='logout'),
+    path('logout/', LogoutView.as_view(next_page='login/'), name='logout'),
     path('admin/', admin.site.urls),
 ]

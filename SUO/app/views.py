@@ -14,6 +14,7 @@ from django.views.generic.base import TemplateView
 
 from .tables import TicketsTable, TicketsTableCentral
 from django.contrib.auth.models import User, Group
+from django.contrib.auth.decorators import login_required
 import urllib.parse
 import re
 
@@ -68,7 +69,7 @@ def kbutton(request):
         Ticket.save()
         return HttpResponseRedirect('../kiosk/')
 
-
+@login_required
 def home(request):
     """Renders the home page."""
     assert isinstance(request, HttpRequest)
@@ -81,7 +82,7 @@ def home(request):
         }
     )
 
-
+@login_required
 def windows(request):
     """Renders the windows page."""
     assert isinstance(request, HttpRequest)
@@ -94,6 +95,7 @@ def windows(request):
         }
     )
 
+@login_required
 def operator(request):
     """Renders the operator page."""
     assert isinstance(request, HttpRequest)
@@ -106,6 +108,7 @@ def operator(request):
         }
     )
 
+@login_required
 def settings(request):
     """Renders the operator page."""
     assert isinstance(request, HttpRequest)
@@ -118,6 +121,7 @@ def settings(request):
         }
     )
 
+@login_required
 def register(request):
     if request.method == 'POST':
         user_form = UserRegistrationForm(request.POST)
@@ -140,6 +144,7 @@ def register(request):
         user_form = UserRegistrationForm()
     return render(request, 'app/register.html', {'user_form': user_form, 'year':datetime.now().year,})
 
+@login_required
 def settingsw(request):
     """Renders the operator page."""
     assert isinstance(request, HttpRequest)
@@ -152,6 +157,7 @@ def settingsw(request):
         }
     )
 
+@login_required
 def settingso(request):
     """Renders the operator page."""
     assert isinstance(request, HttpRequest)
