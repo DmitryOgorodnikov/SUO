@@ -18,14 +18,12 @@
 
 <div class="windows-div">
     <div class="windows-div-chld">
-        <h1>Выберите окно</h1>
-        <select>
-            <option>Окно 1</option>
-            <option>Окно 2</option>
-        </select>
-        <div class="windows-div-chld2">
-            <a class="windows-btn" href="{% url 'operator' %}">Выбрать</a>
-        </div>
+        <form method="POST">
+            <h1>Выберите окно</h1>
+            {% csrf_token %}
+            {{ form }}
+            <input class="windows-btn" type="submit" value="Зайти" >
+        </form>
     </div>
 </div>
 

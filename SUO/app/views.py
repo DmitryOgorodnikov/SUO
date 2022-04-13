@@ -3,11 +3,14 @@ Definition of views.
 """
 from datetime import datetime
 from django.shortcuts import render, render_to_response
-from django.http import HttpRequest, HttpResponseRedirect
-from .models import Tickets
+from django.views.generic.list import ListView
+from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
+from .models import Tickets, Windows
+from .forms import WindowsAuthenticationForm
 from django.template import Template, RequestContext
 from .forms import UserRegistrationForm
 from django.contrib.auth.models import User
+from django.shortcuts import get_object_or_404
 
 from django_tables2 import SingleTableView, MultiTableMixin
 from django.views.generic.base import TemplateView
@@ -82,29 +85,39 @@ def home(request):
         }
     )
 
+
 @login_required
 def windows(request):
-    """Renders the windows page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/windows.html',
-        {
-            'title':'Окна',
-            'year':datetime.now().year,
-        }
+
+    if request.method == "POST":
+        window_id = request.POST.get("id_window")
+        request.session['window_id'] = window_id
+        return HttpResponseRedirect('../operator/')
+    else:
+        form = WindowsAuthenticationForm()
+        return render(
+            request,
+            'app/windows.html',
+            {
+                'title':'Окна',
+                'year':datetime.now().year,
+                'form': form,
+            }
     )
+
 
 @login_required
 def operator(request):
     """Renders the operator page."""
     assert isinstance(request, HttpRequest)
+    window_id = request.session.get('window_id')
     return render(
         request,
         'app/operator.html',
         {
             'title':'Оператор',
             'year':datetime.now().year,
+            'window_id': window_id,
         }
     )
 

@@ -3,11 +3,12 @@ Definition of forms.
 """
 
 from django import forms
-from django.forms import TextInput,PasswordInput,EmailInput,NullBooleanSelect,SelectMultiple,ModelForm
+from django.forms import TextInput,PasswordInput,EmailInput,NullBooleanSelect,SelectMultiple,ModelForm, Select
 from django.contrib.auth.forms import AuthenticationForm
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import User, Group
 from django.db import models
+from .models import Tickets, Windows
 
 class BootstrapAuthenticationForm(AuthenticationForm):
     """Authentication form which uses boostrap CSS."""
@@ -43,3 +44,11 @@ class UserRegistrationForm(forms.ModelForm):
         if cd['password'] != cd['password2']:
             raise forms.ValidationError('Пароли не совпадают')
         return cd['password2']
+
+windows_l = []
+
+class WindowsAuthenticationForm(forms.Form):
+    for l in Windows.objects.all().values_list('id_window'):
+        windows_l += [(l[0],l[0])]
+    id_window = forms.ChoiceField(choices = windows_l, label='Окно ')
+
