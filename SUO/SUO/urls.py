@@ -48,6 +48,7 @@ urlpatterns = [
          name='statistics'),
     path('windows/login/', views.windows, name='windows'),
     path('windows/operator/', views.operator, name='operator'),
+    path('windows/operator/nextbutton', views.nextbutton, name='nextbutton'),
     path('login/',
          LoginView.as_view
          (

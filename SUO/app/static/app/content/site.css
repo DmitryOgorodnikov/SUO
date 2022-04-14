@@ -154,6 +154,46 @@ input[type="checkbox"].input-validation-error {
     border-color: #adadad;
 }
 
+.operator-div {
+    width: 95%;
+    height: 400px;
+    position: absolute;
+    bottom: 0%;
+    margin-left: 2.5%;
+    margin-bottom: 20px;
+    text-align: center;
+    padding-top: 25px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+}
+
+.operator-div2 {
+    width: 95%;
+    height: 140px;
+    position: absolute;
+    top: 0%;
+    margin-left: 2.5%;
+    margin-top: 20px;
+    text-align: left;
+    padding-top: 25px;
+}
+
+.operator-btn {
+    width: 95%;
+    max-width: 600px;
+    margin-bottom: 10px;
+}
+
+.operator-btn:disabled {
+    color: #333333;
+    text-decoration: none;
+    background-color: #A9A9A9;
+    border-color: #adadad;
+}
+
 .statistics-div {
     height: 610px;
     width: 100%;
@@ -450,6 +490,12 @@ fieldset[disabled] .settings-btn {
     width: 30%;
     height: 34px;
 }
+
+.nav-block1-operator {
+    width: 55px;
+    margin-left: 0px;
+}
+
 .nav-block1 p {
     margin-top: 5px;
     margin-bottom: 5px;
@@ -475,6 +521,14 @@ fieldset[disabled] .settings-btn {
 
 .nav-block2-w {
     margin-left: 40%;
+    margin-right: 2%;
+}
+
+.nav-block1-operator2 {
+    width: 55px;
+    margin-left: 50%;
+    margin-right: 2%;
+    text-align:right;
 }
 
 .margin100 {

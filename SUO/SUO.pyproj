@@ -35,9 +35,18 @@
     <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="app\context_processors\post_context.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\context_processors\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="app\forms.py" />
     <Compile Include="app\models.py" />
     <Compile Include="app\tables.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="app\templatetags\poll_extras.py">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="app\templatetags\__init__.py">
@@ -58,6 +67,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="app\" />
+    <Folder Include="app\context_processors\" />
     <Folder Include="app\migrations\" />
     <Folder Include="app\static\" />
     <Folder Include="app\static\app\" />
@@ -76,6 +86,7 @@
       <Publish>False</Publish>
     </Content>
     <Content Include="app\static\app\scripts\kiosk.js" />
+    <Content Include="app\static\app\scripts\operator.js" />
     <Content Include="app\static\app\scripts\statistics.open.js" />
     <Content Include="app\static\app\scripts\myset.js" />
     <Content Include="app\static\app\scripts\windows.js" />

@@ -4,7 +4,7 @@ Definition of views.
 from datetime import datetime
 from django.shortcuts import render, render_to_response
 from django.views.generic.list import ListView
-from django.http import HttpRequest, HttpResponseRedirect, HttpResponse
+from django.http import HttpRequest, HttpResponseRedirect, HttpResponse, JsonResponse
 from .models import Tickets, Windows
 from .forms import WindowsAuthenticationForm
 from django.template import Template, RequestContext
@@ -20,6 +20,8 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 import urllib.parse
 import re
+
+from django.views.generic import DetailView
 
 class TicketsListCentral(MultiTableMixin, TemplateView):
     template_name = 'app/tickets.html'
@@ -111,6 +113,12 @@ def operator(request):
     """Renders the operator page."""
     assert isinstance(request, HttpRequest)
     window_id = request.session.get('window_id')
+#    request.session['ticket'] = Tickets.objects.filter(id_window = None)[:1]
+
+#    if request.method == "POST":
+#        request.session['ticket'] = Tickets.objects.filter(id_window = None)[:1]
+#        return HttpResponse()
+#    else:
     return render(
         request,
         'app/operator.html',
@@ -120,6 +128,18 @@ def operator(request):
             'window_id': window_id,
         }
     )
+
+def nextbutton(request):
+    if request.GET.get('click', False):
+        window_id = request.session.get('window_id')
+        Ticket = list(Tickets.objects.filter(id_window = None )[:1])[0]
+        Ticket.id_window = Windows.objects.get(id_window=window_id)
+        Ticket.time_call = datetime.now()
+        #Ticket.save()
+        ticket = 'Текущий талон: ' + Ticket.name_ticket
+        request.session['ticket'] = ticket
+
+        return JsonResponse({"ticket": ticket}, status=200)
 
 @login_required
 def settings(request):

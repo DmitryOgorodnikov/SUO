@@ -4,13 +4,16 @@
 
 <nav class="nav-bar nav-bar-w">
     <div>
-        <div class="nav-block1">
+        <div class="nav-block1 nav-block1-operator">
             <p class="index-center">Окно {{ window_id }}</p>
         </div>
-        <div class="nav-block1 nav-block2 nav-block2-w">
+        <div class="nav-block1 nav-block1-operator">
+            <a class="btn btn-default btn-index" href="{% url 'logout' %}">Сменить</a>
+        </div>
+        <div class="nav-block1 nav-block2 nav-block2-w nav-block1-operator2">
             <p class="index-center">{{user.get_username}}</p>
         </div>
-        <div class="nav-block1 nav-block3">
+        <div class="nav-block1 nav-block3 ">
             <a class="btn btn-default btn-index" href="{% url 'logout' %}">Выйти</a>
         </div>
     </div>
@@ -18,8 +21,33 @@
 
 <div class="windows-div">
     <div class="windows-div-chld">
+        <div class="operator-div2">
+            <h2>
+                <p id="ta">Текущий талон: </p>
 
+                <h2>Услуга: </h2>
+            </h2>
+        </div>
+        <div class="operator-div">
+            <form method="POST">
+                {% csrf_token %}
+                <input class="windows-btn operator-btn" type="button" value="Следующий" id="Next">
+                <input class="windows-btn operator-btn" type="button" value="Повторный вызов" disabled>
+                <input class="windows-btn operator-btn" type="button" value="Клиент не подошел" disabled>
+                <input class="windows-btn operator-btn" type="button" value="Отложить" disabled>
+                <input class="windows-btn operator-btn" type="button" value="Перенаправить" disabled>
+                <input class="windows-btn operator-btn" type="button" value="Вызов по номеру">
+                <input class="windows-btn operator-btn" type="button" value="Перерыв" disabled>
+            </form>
+        </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    {% load staticfiles %}
+<script src="{% static 'app/scripts/operator.js' %}"></script>
 
 {% endblock %}
