@@ -1,4 +1,5 @@
 {% extends "app/layout.html" %}
+{% load static %}
 
 {% block content %}
 
@@ -25,11 +26,11 @@
             <h2>
                 <p id="ta">Текущий талон: </p>
 
-                <h2>Услуга: </h2>
+                <p id="tb">Услуга: </p>
             </h2>
         </div>
         <div class="operator-div">
-            <form method="POST">
+            <form action="" method="GET">
                 {% csrf_token %}
                 <input class="windows-btn operator-btn" type="button" value="Следующий" id="Next">
                 <input class="windows-btn operator-btn" type="button" value="Повторный вызов" disabled>
@@ -48,6 +49,7 @@
 {% block scripts %}
 
     {% load staticfiles %}
-<script src="{% static 'app/scripts/operator.js' %}"></script>
+    <script src="{% static 'app/scripts/operator.js' %}"></script>
+    <script src="{% static 'app/scripts/myset.js'%}"> </script>
 
 {% endblock %}

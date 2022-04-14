@@ -20,6 +20,7 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 import urllib.parse
 import re
+from django.views.decorators.csrf import csrf_exempt
 
 from django.views.generic import DetailView
 
