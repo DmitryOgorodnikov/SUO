@@ -28,3 +28,11 @@
 </div>
 
 {% endblock %}
+
+{% block scripts %}
+
+    {% load staticfiles %}
+    <script src="{% static 'app/scripts/windows.js' %}"></script>
+    <script src="{% static 'app/scripts/myset.js'%}"> </script>
+
+{% endblock %}

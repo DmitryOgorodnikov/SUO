@@ -48,7 +48,9 @@ class UserRegistrationForm(forms.ModelForm):
 windows_l = []
 
 class WindowsAuthenticationForm(forms.Form):
-    for l in Windows.objects.all().values_list('id_window'):
-        windows_l += [(l[0],l[0])]
-    id_window = forms.ChoiceField(choices = windows_l, label='Окно ')
+    #for l in Windows.objects.filter(id = None).values_list('id_window'):
+        #windows_l += [(l[0],l[0])]
+
+    #id_window = forms.ChoiceField(choices = windows_l, label='Окно ')
+    id_window = forms.ChoiceField(choices = [('','')], label='Окно ')
 

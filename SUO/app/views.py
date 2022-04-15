@@ -97,6 +97,7 @@ def windows(request):
         request.session['window_id'] = window_id
         return HttpResponseRedirect('../operator/')
     else:
+        request.session['window_id'] = ''
         form = WindowsAuthenticationForm()
         return render(
             request,
@@ -132,16 +133,80 @@ def operator(request):
 
 def nextbutton(request):
     if request.GET.get('click', False):
-        window_id = request.session.get('window_id')
-        Ticket = list(Tickets.objects.filter(id_window = None )[:1])[0]
-        Ticket.id_window = Windows.objects.get(id_window=window_id)
-        Ticket.time_call = datetime.now()
-        #Ticket.save()
-        ticket = 'Текущий талон: ' + Ticket.name_ticket
-        request.session['ticket'] = ticket
+        if Tickets.objects.filter(time_close = None).exists() == False:
+            ticket = 'Текущий талон: Нет талонов в очереди'
+            request.session['ticket'] = ticket
 
-        return JsonResponse({"ticket": ticket}, status=200)
+            return JsonResponse({"ticket": ticket}, status=200)
 
+        if request.session.get('Ticket_n') is None:
+            window_id = request.session.get('window_id')
+            Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
+            Ticket.id_window = Windows.objects.get(id_window=window_id)
+            Ticket.time_call = datetime.now()
+            Ticket.save()
+            ticket = 'Текущий талон: ' + Ticket.name_ticket
+            request.session['ticket'] = ticket
+            request.session['Ticket_n'] = Ticket.id_ticket
+
+            return JsonResponse({"ticket": ticket}, status=200)
+
+
+        else:
+            Ticket = (Tickets.objects.filter(id_ticket=request.session.get('Ticket_n')))[0]
+            Ticket.time_close = datetime.now()
+            Ticket.status = 'Закрыт'
+            Ticket.save()
+
+            window_id = request.session.get('window_id')
+            Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
+            Ticket.id_window = Windows.objects.get(id_window=window_id)
+            Ticket.time_call = datetime.now()
+            Ticket.save()
+            ticket = 'Текущий талон: ' + Ticket.name_ticket
+            request.session['ticket'] = ticket
+            request.session['Ticket_n'] = Ticket.id_ticket
+
+            return JsonResponse({"ticket": ticket}, status=200)
+
+
+def ncbutton(request):
+    if request.GET.get('click', False):
+        if Tickets.objects.filter(time_close = None).exists() == False:
+            ticket = 'Текущий талон: Нет талонов в очереди'
+            request.session['ticket'] = ticket
+
+            return JsonResponse({"ticket": ticket}, status=200)
+
+        if request.session.get('Ticket_n') is None:
+            window_id = request.session.get('window_id')
+            Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
+            Ticket.id_window = Windows.objects.get(id_window=window_id)
+            Ticket.time_call = datetime.now()
+            Ticket.save()
+            ticket = 'Текущий талон: ' + Ticket.name_ticket
+            request.session['ticket'] = ticket
+            request.session['Ticket_n'] = Ticket.id_ticket
+
+            return JsonResponse({"ticket": ticket}, status=200)
+
+
+        else:
+            Ticket = (Tickets.objects.filter(id_ticket=request.session.get('Ticket_n')))[0]
+            Ticket.time_close = datetime.now()
+            Ticket.status = 'Закрыт'
+            Ticket.save()
+
+            window_id = request.session.get('window_id')
+            Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
+            Ticket.id_window = Windows.objects.get(id_window=window_id)
+            Ticket.time_call = datetime.now()
+            Ticket.save()
+            ticket = 'Текущий талон: ' + Ticket.name_ticket
+            request.session['ticket'] = ticket
+            request.session['Ticket_n'] = Ticket.id_ticket
+
+            return JsonResponse({"ticket": ticket}, status=200)
 @login_required
 def settings(request):
     """Renders the operator page."""
