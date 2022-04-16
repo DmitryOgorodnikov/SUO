@@ -28,21 +28,26 @@
 
                 <p id="tb">Услуга: </p>
             </h2>
+            <div id="time" class="time" visibility = "hidden">
+                <span id="hour">hh</span>:<span id="min">mm</span>:<span id="sec">ss</span>
+            </div>
         </div>
         <div class="operator-div">
             <form action="" method="GET">
                 {% csrf_token %}
                 <input class="windows-btn operator-btn" type="button" value="Следующий" id="Next">
-                <input class="windows-btn operator-btn" type="button" value="Повторный вызов" disabled>
-                <input class="windows-btn operator-btn" type="button" value="Клиент не подошел" disabled>
-                <input class="windows-btn operator-btn" type="button" value="Отложить" disabled>
-                <input class="windows-btn operator-btn" type="button" value="Перенаправить" disabled>
-                <input class="windows-btn operator-btn" type="button" value="Вызов по номеру">
-                <input class="windows-btn operator-btn" type="button" value="Перерыв" disabled>
+                <input class="windows-btn operator-btn" type="button" value="Повторный вызов" id="Replay" disabled>
+                <input class="windows-btn operator-btn" type="button" value="Клиент не подошел" id="Cancel" disabled>
+                <input class="windows-btn operator-btn windows-btn-hidden" type="button" value="Отложить" id="Cancel" disabled>
+                <input class="windows-btn operator-btn windows-btn-hidden" type="button" value="Перенаправить" id="Redirect" disabled>
+                <input class="windows-btn operator-btn windows-btn-hidden" type="button" value="Вызов по номеру" id="CallingBN">
+                <input class="windows-btn operator-btn" type="button" value="Перерыв" id="Break" disabled>
             </form>
         </div>
     </div>
 </div>
+
+
 
 {% endblock %}
 
@@ -51,5 +56,6 @@
     {% load staticfiles %}
     <script src="{% static 'app/scripts/operator.js' %}"></script>
     <script src="{% static 'app/scripts/myset.js'%}"> </script>
+
 
 {% endblock %}

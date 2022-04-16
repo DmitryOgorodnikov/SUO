@@ -109,6 +109,14 @@ def windows(request):
             }
     )
 
+def windowbutton(request):
+    if request.GET.get('click', False):
+        windows_l = []
+        for l in Windows.objects.filter(id = None).values_list('id_window'):
+            windows_l.append(l[0])
+
+        return JsonResponse({"windows_l": windows_l}, status=200)
+
 
 @login_required
 def operator(request):
@@ -121,6 +129,7 @@ def operator(request):
 #        request.session['ticket'] = Tickets.objects.filter(id_window = None)[:1]
 #        return HttpResponse()
 #    else:
+
     return render(
         request,
         'app/operator.html',
@@ -149,7 +158,12 @@ def nextbutton(request):
             request.session['ticket'] = ticket
             request.session['Ticket_n'] = Ticket.id_ticket
 
-            return JsonResponse({"ticket": ticket}, status=200)
+            time = Ticket.time_call
+            hour = time.hour
+            minute = time.minute
+            second = time.second
+
+            return JsonResponse({"ticket": ticket, "hour": hour, "minute": minute, "second": second}, status=200)
 
 
         else:
@@ -157,6 +171,12 @@ def nextbutton(request):
             Ticket.time_close = datetime.now()
             Ticket.status = 'Закрыт'
             Ticket.save()
+
+            if Tickets.objects.filter(time_close = None).exists() == False:
+                ticket = 'Текущий талон: Нет талонов в очереди'
+                request.session['ticket'] = ticket
+                request.session['Ticket_n'] = None
+                return JsonResponse({"ticket": ticket}, status=200)
 
             window_id = request.session.get('window_id')
             Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
@@ -167,46 +187,30 @@ def nextbutton(request):
             request.session['ticket'] = ticket
             request.session['Ticket_n'] = Ticket.id_ticket
 
-            return JsonResponse({"ticket": ticket}, status=200)
+            time = Ticket.time_call
+            hour = time.hour
+            minute = time.minute
+            second = time.second
+
+            return JsonResponse({"ticket": ticket, "hour": hour, "minute": minute, "second": second}, status=200)
 
 
 def ncbutton(request):
     if request.GET.get('click', False):
-        if Tickets.objects.filter(time_close = None).exists() == False:
-            ticket = 'Текущий талон: Нет талонов в очереди'
-            request.session['ticket'] = ticket
 
-            return JsonResponse({"ticket": ticket}, status=200)
+        window_id = request.session.get('window_id')
+        Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
+        Ticket.id_window = Windows.objects.get(id_window=window_id)
+        Ticket.time_call = datetime.now()
+        Ticket.save()
+        ticket = 'Текущий талон: ' + Ticket.name_ticket
+        request.session['ticket'] = ticket
+        request.session['Ticket_n'] = Ticket.id_ticket
 
-        if request.session.get('Ticket_n') is None:
-            window_id = request.session.get('window_id')
-            Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
-            Ticket.id_window = Windows.objects.get(id_window=window_id)
-            Ticket.time_call = datetime.now()
-            Ticket.save()
-            ticket = 'Текущий талон: ' + Ticket.name_ticket
-            request.session['ticket'] = ticket
-            request.session['Ticket_n'] = Ticket.id_ticket
-
-            return JsonResponse({"ticket": ticket}, status=200)
+        return JsonResponse({"ticket": ticket}, status=200)
 
 
-        else:
-            Ticket = (Tickets.objects.filter(id_ticket=request.session.get('Ticket_n')))[0]
-            Ticket.time_close = datetime.now()
-            Ticket.status = 'Закрыт'
-            Ticket.save()
 
-            window_id = request.session.get('window_id')
-            Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
-            Ticket.id_window = Windows.objects.get(id_window=window_id)
-            Ticket.time_call = datetime.now()
-            Ticket.save()
-            ticket = 'Текущий талон: ' + Ticket.name_ticket
-            request.session['ticket'] = ticket
-            request.session['Ticket_n'] = Ticket.id_ticket
-
-            return JsonResponse({"ticket": ticket}, status=200)
 @login_required
 def settings(request):
     """Renders the operator page."""

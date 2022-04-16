@@ -89,6 +89,7 @@
     <Content Include="app\static\app\scripts\operator.js" />
     <Content Include="app\static\app\scripts\statistics.open.js" />
     <Content Include="app\static\app\scripts\myset.js" />
+    <Content Include="app\static\app\scripts\timer.js" />
     <Content Include="app\static\app\scripts\windows.js" />
     <Content Include="app\templates\app\register.html" />
     <Content Include="app\templates\app\operator.html" />

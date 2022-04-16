@@ -52,5 +52,5 @@ class WindowsAuthenticationForm(forms.Form):
         #windows_l += [(l[0],l[0])]
 
     #id_window = forms.ChoiceField(choices = windows_l, label='Окно ')
-    id_window = forms.ChoiceField(choices = [('','')], label='Окно ')
+    id_window = forms.ChoiceField(choices = [('','')], label='Окно')
 
