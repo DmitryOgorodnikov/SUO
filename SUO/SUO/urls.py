@@ -50,6 +50,8 @@ urlpatterns = [
     path('windows/login/windowbutton', views.windowbutton, name='windowbutton'),
     path('windows/operator/', views.operator, name='operator'),
     path('windows/operator/nextbutton', views.nextbutton, name='nextbutton'),
+    path('windows/operator/cancelbutton', views.cancelbutton, name='cancelbutton'),
+    path('windows/operator/breakbutton', views.breakbutton, name='breakbutton'),
     path('login/',
          LoginView.as_view
          (

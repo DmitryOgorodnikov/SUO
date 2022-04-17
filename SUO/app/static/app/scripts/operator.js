@@ -1,7 +1,7 @@
 $('#Next').click(function () {
     $.ajax({
         url: "nextbutton",
-        method: 'GET', // or another (GET), whatever you need
+        method: 'GET',
         data: {
             click: true
         },
@@ -15,8 +15,43 @@ $('#Next').click(function () {
     });
 });
 
-localStorage.setItem('ticket', 'Текущий талон: ')
+$('#Cancel').click(function () {
+    $.ajax({
+        url: "cancelbutton",
+        method: 'GET',
+        data: {
+            click: true
+        },
+        success: function (response) {
+            $('#ta').text(response.ticket);
+            localStorage.setItem('ticket', response.ticket)
+            localStorage.setItem('hour', response.hour)
+            localStorage.setItem('minute', response.minute)
+            localStorage.setItem('second', response.second)
+        }
+    });
+});
 
+$('#Break').click(function () {
+    $.ajax({
+        url: "breakbutton",
+        method: 'GET',
+        data: {
+            click: true
+        },
+        success: function (response) {
+            $('#ta').text(response.ticket);
+            localStorage.setItem('ticket', response.ticket)
+            localStorage.setItem('hour', response.hour)
+            localStorage.setItem('minute', response.minute)
+            localStorage.setItem('second', response.second)
+        }
+    });
+});
+
+if (localStorage.getItem('ticket') === null) {
+    localStorage.setItem('ticket', 'Текущий талон: ');
+}
 let id = setInterval(update, 500);
 function update() {
     var date = new Date()
@@ -32,9 +67,7 @@ function update() {
     if (seconds < 10) seconds = '0' + seconds
     if (isNaN(seconds)) {
         $('#time').css('visibility', 'hidden');
-        $('#Replay').attr('disabled', true);
-        $('#Cancel').attr('disabled', true);
-        $('#Break').attr('disabled', true);
+        $('#Replay, #Cancel, #Break').attr('disabled', true);
     }
     document.getElementById('sec').innerHTML = seconds
 
@@ -52,9 +85,12 @@ function update() {
 
     if (hours === '00' && minutes === '00') {
         $('#time').css('visibility', 'visible');
-        $('#Replay').removeAttr('disabled');
-        $('#Cancel').removeAttr('disabled');
-        $('#Break').removeAttr('disabled');
+        if (localStorage.getItem('ticket').search('Перерыв') !== -1) {
+            $('#Replay, #Cancel, #Break').attr('disabled', true);
+        }
+        else {
+            $('#Replay, #Cancel, #Break').removeAttr('disabled');
+        }
     }
 
 }

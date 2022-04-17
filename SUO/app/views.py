@@ -195,8 +195,19 @@ def nextbutton(request):
             return JsonResponse({"ticket": ticket, "hour": hour, "minute": minute, "second": second}, status=200)
 
 
-def ncbutton(request):
+def cancelbutton(request):
     if request.GET.get('click', False):
+
+        Ticket = (Tickets.objects.filter(id_ticket=request.session.get('Ticket_n')))[0]
+        Ticket.time_close = datetime.now()
+        Ticket.status = 'Отменен'
+        Ticket.save()
+
+        if Tickets.objects.filter(time_close = None).exists() == False:
+            ticket = 'Текущий талон: Нет талонов в очереди'
+            request.session['ticket'] = ticket
+            request.session['Ticket_n'] = None
+            return JsonResponse({"ticket": ticket}, status=200)
 
         window_id = request.session.get('window_id')
         Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
@@ -207,7 +218,28 @@ def ncbutton(request):
         request.session['ticket'] = ticket
         request.session['Ticket_n'] = Ticket.id_ticket
 
-        return JsonResponse({"ticket": ticket}, status=200)
+        time = Ticket.time_call
+        hour = time.hour
+        minute = time.minute
+        second = time.second
+
+        return JsonResponse({"ticket": ticket, "hour": hour, "minute": minute, "second": second}, status=200)
+
+def breakbutton(request):
+    if request.GET.get('click', False):
+
+        Ticket = (Tickets.objects.filter(id_ticket=request.session.get('Ticket_n')))[0]
+        Ticket.time_close = datetime.now()
+        Ticket.status = 'Закрыт'
+        Ticket.save()
+        ticket = 'Текущий талон: Перерыв'
+
+        time = Ticket.time_close
+        hour = time.hour
+        minute = time.minute
+        second = time.second
+
+        return JsonResponse({"ticket": ticket, "hour": hour, "minute": minute, "second": second}, status=200)
 
 
 
