@@ -25,7 +25,7 @@ class UserRegistrationForm(forms.ModelForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput({
                                    'class': 'form-control',
                                    'placeholder': ''}))
-    first_name = forms.CharField(label='Имя', widget=forms.TextInput({
+    last_name = forms.CharField(label='ФИО', widget=forms.TextInput({
                                    'class': 'form-control',
                                    'placeholder': ''}))
     password = forms.CharField(label='Пароль', widget=forms.PasswordInput({
@@ -37,7 +37,7 @@ class UserRegistrationForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ('username', 'first_name')
+        fields = ('username', 'last_name')
 
     def clean_password2(self):
         cd = self.cleaned_data
@@ -45,12 +45,6 @@ class UserRegistrationForm(forms.ModelForm):
             raise forms.ValidationError('Пароли не совпадают')
         return cd['password2']
 
-windows_l = []
-
 class WindowsAuthenticationForm(forms.Form):
-    #for l in Windows.objects.filter(id = None).values_list('id_window'):
-        #windows_l += [(l[0],l[0])]
-
-    #id_window = forms.ChoiceField(choices = windows_l, label='Окно ')
     id_window = forms.ChoiceField(choices = [('','')], label='Окно')
 

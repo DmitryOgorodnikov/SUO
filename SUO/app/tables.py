@@ -4,6 +4,7 @@ from .models import Tickets
 from datetime import timedelta
 from django.db.models import F, DurationField, ExpressionWrapper
 from django.db.models.functions import Coalesce
+from django.contrib.auth.models import User
 
 class TicketsTable(tables.Table):
     service = tables.Column(verbose_name= "Время обслуживания")

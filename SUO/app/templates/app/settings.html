@@ -1,4 +1,6 @@
 {% extends "app/layout.html" %}
+{% load render_table from django_tables2 %}
+{% load static %}
 
 {% block content %}
 
@@ -24,12 +26,22 @@
     </div>
     <div class="settings-div-chld-two">
         <div class="settings-div-chld-4">
+            <table>
 
+            </table>
         </div>
         <div class="settings-div-chld-3">
             <button class="settings-btn settings-btn-cr" onclick="window.location.href = 'http://localhost:8000/register/';">Создать новую учетную запись</button>
         </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    {% load staticfiles %}
+    <script src="{% static 'app/scripts/settings.js' %}"></script>
+    <script src="{% static 'app/scripts/myset.js'%}"> </script>
 
 {% endblock %}

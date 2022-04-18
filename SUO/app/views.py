@@ -123,13 +123,6 @@ def operator(request):
     """Renders the operator page."""
     assert isinstance(request, HttpRequest)
     window_id = request.session.get('window_id')
-#    request.session['ticket'] = Tickets.objects.filter(id_window = None)[:1]
-
-#    if request.method == "POST":
-#        request.session['ticket'] = Tickets.objects.filter(id_window = None)[:1]
-#        return HttpResponse()
-#    else:
-
     return render(
         request,
         'app/operator.html',
@@ -247,6 +240,7 @@ def breakbutton(request):
 def settings(request):
     """Renders the operator page."""
     assert isinstance(request, HttpRequest)
+
     return render(
         request,
         'app/settings.html',
@@ -255,6 +249,15 @@ def settings(request):
             'year':datetime.now().year,
         }
     )
+
+def settingstable(request):
+    if request.GET.get('click', False):
+        user = []
+        users = User.objects.exclude(username = 'admin')
+        for p in users:
+            user.append([p.id, p.username, p.last_name])
+
+        return JsonResponse({"user": user}, status=200)
 
 @login_required
 def register(request):

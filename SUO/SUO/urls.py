@@ -19,6 +19,7 @@ urlpatterns = [
     path('api/', include(v1_api.urls), name ='Талоны'),
     path('', views.home, name='home'),
     path('settings/', views.settings, name='settings'),
+    path('settings/settingstable', views.settingstable, name='settingstable'),
     path('register/',views.register,name='register'),
     path('settings/window/', views.settingsw, name='settingsw'),
     path('settings/ops/', views.settingso, name='settingso'),

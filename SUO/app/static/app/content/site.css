@@ -297,10 +297,6 @@ input[type="checkbox"].input-validation-error {
     bottom: 0%;
     margin-bottom: 0px;
     left: 0%;
-    background-color: #f8f9fa;
-    border-width: 2px;
-    border-color: #ccc;
-    border: 1px solid rgba(0,0,0,.125);
     border-radius: 10px;
     text-align: center;
 }
@@ -309,16 +305,45 @@ input[type="checkbox"].input-validation-error {
     width: 100%;
     height: 10%;
     position: absolute;
-    top: 0%;
+    top: 30px;
     bottom: 0%;
     margin-bottom: 0px;
     left: 0%;
-    background-color: #f8f9fa;
-    border-width: 2px;
-    border-color: #ccc;
+    text-align: left;
+}
+
+.settings-div-chld-4 table {
+    width: 100%;
+    font-size: large;
+}
+
+.settings-div-chld-4 tr {
     border: 1px solid rgba(0,0,0,.125);
-    border-radius: 10px;
-    text-align: center;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    width: 100%;
+}
+
+.settings-div-chld-4 td {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+
+.table1 {
+    width: 120px;
+}
+
+.table2 {
+
+}
+
+.table3 {
+    width: 100px;
+}
+
+.table4 {
+    width: 100px;
 }
 
 .settings-btn {
@@ -326,7 +351,7 @@ input[type="checkbox"].input-validation-error {
     text-align: left;
     display: inline-block;
     padding: 6px 12px;
-    margin-bottom: 0;
+    margin-bottom: 0px;
     font-size: 14px;
     font-weight: normal;
     line-height: 1.428571429;
@@ -392,7 +417,33 @@ fieldset[disabled] .settings-btn {
     text-align: center;
     display: inline-block;
     padding: 3px 12px;
-    margin-bottom: 0;
+    margin-bottom: 0px;
+    margin-top: 1px;
+    font-size: 14px;
+    font-weight: normal;
+    line-height: 1.428571429;
+    white-space: nowrap;
+    vertical-align: middle;
+    cursor: pointer;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #333333;
+    background-color: #ffffff;
+    border-color: #cccccc;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+}
+
+.settings-btn-cr {
+    width: 30%;
+    text-align: center;
+    display: inline-block;
+    padding: 3px 12px;
+    margin-bottom: 0px;
+    margin-top: 1px;
     font-size: 14px;
     font-weight: normal;
     line-height: 1.428571429;
