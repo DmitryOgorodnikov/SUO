@@ -315,6 +315,7 @@ input[type="checkbox"].input-validation-error {
 .settings-div-chld-4 table {
     width: 100%;
     font-size: large;
+    margin-top: 10px;
 }
 
 .settings-div-chld-4 tr {
@@ -368,6 +369,16 @@ input[type="checkbox"].input-validation-error {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+}
+
+.button-a {
+    width: 250px;
+    text-align: center;
+}
+
+.button-b {
+    width: 130px;
+    text-align: center;
 }
 
 .settings-btn:focus {
