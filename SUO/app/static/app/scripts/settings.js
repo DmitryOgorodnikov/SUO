@@ -39,7 +39,7 @@ $('table').on('click', '#Edit', function () {
             click: true
         },
         success: function (response) {
-            window.location.href = "../register"
+            window.location.href = "../editer"
         }
     });
 });

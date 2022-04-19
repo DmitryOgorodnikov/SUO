@@ -23,6 +23,7 @@ urlpatterns = [
     path('settings/edituser', views.edituser, name='edituser'),
     path('settings/settingstable', views.settingstable, name='settingstable'),
     path('register/', views.register, name='register'),
+    path('editer/', views.editer, name='editer'),
     path('settings/window/', views.settingsw, name='settingsw'),
     path('settings/ops/', views.settingso, name='settingso'),
     path('kiosk/', views.kiosk, name='kiosk'),

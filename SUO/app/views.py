@@ -273,39 +273,36 @@ def settingstable(request):
 
 @login_required
 def register(request):
-    if request.session.get('useredit') is not None:
-        Useredit = User.objects.filter(id = request.session.get('useredit'))[0]
-        if request.method == 'POST':
-            user_form = UserChangeForm(request.POST, instance=Useredit)
-            if user_form.is_valid():
-                new_user = user_form.save(commit=False)
-                new_user.set_password(user_form.cleaned_data['password'])
-                new_user.save()
-                del request.session['useredit']
-                return HttpResponseRedirect('../settings')
-        else:
-            user_form = UserChangeForm(instance=Useredit)
-            head = 'Редактирование аккаунта'
-            subhead = 'Пожалуйста, измените данные пользователя, используя нижеуказанную форму'
-            namebutton = 'Изменить'
-            return render(request, 'app/register.html', {'user_form': user_form,'head': head, 'subhead': subhead, 'namebutton': namebutton, 'year':datetime.now().year,})
+    if request.method == 'POST':
+        user_form = UserRegistrationForm(request.POST)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            return HttpResponseRedirect('../settings')
     else:
-        if request.method == 'POST':
-            user_form = UserRegistrationForm(request.POST)
-            if user_form.is_valid():
-                # Create a new user object but avoid saving it yet
-                new_user = user_form.save(commit=False)
-                # Set the chosen password
-                new_user.set_password(user_form.cleaned_data['password'])
-                # Save the User object
-                new_user.save()
-                return HttpResponseRedirect('../settings')
-        else:
-            user_form = UserRegistrationForm()
-            head = 'Создание нового аккаунта'
-            subhead = 'Пожалуйста, зарегистрируйте нового пользователя, используя нижеуказанную форму'
-            namebutton = 'Создать'
-            return render(request, 'app/register.html', {'user_form': user_form,'head': head, 'subhead': subhead, 'namebutton': namebutton, 'year':datetime.now().year,})
+        user_form = UserRegistrationForm()
+        head = 'Создание нового аккаунта'
+        subhead = 'Пожалуйста, зарегистрируйте нового пользователя, используя нижеуказанную форму'
+        namebutton = 'Создать'
+        return render(request, 'app/register.html', {'user_form': user_form,'head': head, 'subhead': subhead, 'namebutton': namebutton, 'year':datetime.now().year,})
+
+def editer(request):
+    Useredit = User.objects.filter(id = request.session.get('useredit'))[0]
+    if request.method == 'POST':
+        user_form = UserChangeForm(request.POST, instance=Useredit)
+        if user_form.is_valid():
+            new_user = user_form.save(commit=False)
+            new_user.set_password(user_form.cleaned_data['password'])
+            new_user.save()
+            del request.session['useredit']
+            return HttpResponseRedirect('../settings')
+    else:
+        user_form = UserChangeForm(instance=Useredit)
+        head = 'Редактирование аккаунта'
+        subhead = 'Пожалуйста, измените данные пользователя, используя нижеуказанную форму'
+        namebutton = 'Изменить'
+        return render(request, 'app/register.html', {'user_form': user_form,'head': head, 'subhead': subhead, 'namebutton': namebutton, 'year':datetime.now().year,})
 
 @login_required
 def settingsw(request):
