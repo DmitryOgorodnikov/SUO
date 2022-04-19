@@ -270,11 +270,11 @@ def settingstable(request):
 
         return JsonResponse({"user": user}, status=200)
 
+
 @login_required
 def register(request):
     if request.session.get('useredit') is not None:
         Useredit = User.objects.filter(id = request.session.get('useredit'))[0]
-        request.session['useredit'] = None
         if request.method == 'POST':
             user_form = UserChangeForm(request.POST, instance=Useredit)
             if user_form.is_valid():
