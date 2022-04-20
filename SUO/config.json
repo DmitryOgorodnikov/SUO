@@ -1,0 +1,42 @@
+[
+  {
+    "name": "sending",
+    "rusname": "Отправка",
+    "status": true
+  },
+  {
+    "name": "receiving",
+    "rusname": "Получение",
+    "status": true
+  },
+  {
+    "name": "banking",
+    "rusname": "Банковские услуги",
+    "status": true
+  },
+  {
+    "name": "finance",
+    "rusname": "Финансы",
+    "status": true
+  },
+  {
+    "name": "sending",
+    "rusname": "Отправка",
+    "status": true
+  },
+  {
+    "name": "purchase",
+    "rusname": "Покупка товара",
+    "status": true
+  },
+  {
+    "name": "business",
+    "rusname": "Услуги для бизнеса",
+    "status": true
+  },
+  {
+    "name": "other",
+    "rusname": "Остальные услуги",
+    "status": true
+  }
+]

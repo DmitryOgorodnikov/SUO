@@ -10,6 +10,7 @@ from app.views import TicketsListView, TicketsListCentral, register
 from tastypie.api import Api
 from SUO.resources import TicketsResource, WindowsResource
 
+
 v1_api = Api(api_name='v1')
 v1_api.register(TicketsResource())
 #v1_api.register(WindowsResource())
@@ -22,9 +23,11 @@ urlpatterns = [
     path('settings/delbutton', views.delbutton, name='delbutton'),
     path('settings/edituser', views.edituser, name='edituser'),
     path('settings/settingstable', views.settingstable, name='settingstable'),
+    path('settings/settingswtable', views.settingswtable, name='settingswtable'),
     path('register/', views.register, name='register'),
     path('editer/', views.editer, name='editer'),
     path('settings/window/', views.settingsw, name='settingsw'),
+    path('settings/window/settingswtable', views.settingswtable, name='settingswtable'),
     path('settings/ops/', views.settingso, name='settingso'),
     path('kiosk/', views.kiosk, name='kiosk'),
     path('kiosk/kbutton', views.kbutton, name='kbutton'),

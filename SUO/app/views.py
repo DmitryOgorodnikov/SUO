@@ -270,6 +270,40 @@ def settingstable(request):
 
         return JsonResponse({"user": user}, status=200)
 
+@login_required
+def settingsw(request):
+    """Renders the operator page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/settingsw.html',
+        {
+            'title':'Окна',
+            'year':datetime.now().year,
+        }
+    )
+
+def settingswtable(request):
+    if request.GET.get('click', False):
+        window = []
+        windows = Windows.objects.all()
+        for p in windows:
+            window.append([p.id_window])
+
+        return JsonResponse({"window": window}, status=200)
+
+@login_required
+def settingso(request):
+    """Renders the operator page."""
+    assert isinstance(request, HttpRequest)
+    return render(
+        request,
+        'app/settingso.html',
+        {
+            'title':'ОПС',
+            'year':datetime.now().year,
+        }
+    )
 
 @login_required
 def register(request):
@@ -303,29 +337,3 @@ def editer(request):
         subhead = 'Пожалуйста, измените данные пользователя, используя нижеуказанную форму'
         namebutton = 'Изменить'
         return render(request, 'app/register.html', {'user_form': user_form,'head': head, 'subhead': subhead, 'namebutton': namebutton, 'year':datetime.now().year,})
-
-@login_required
-def settingsw(request):
-    """Renders the operator page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/settingsw.html',
-        {
-            'title':'Окна',
-            'year':datetime.now().year,
-        }
-    )
-
-@login_required
-def settingso(request):
-    """Renders the operator page."""
-    assert isinstance(request, HttpRequest)
-    return render(
-        request,
-        'app/settingso.html',
-        {
-            'title':'ОПС',
-            'year':datetime.now().year,
-        }
-    )

@@ -5,18 +5,13 @@ Definition of models.
 from datetime import timedelta
 from django.db import models
 from django.contrib.auth.models import User, Group
+from django.contrib.postgres.fields import JSONField
 
 class Windows (models.Model):
     id_window = models.IntegerField(primary_key=True, verbose_name="ID Окна")
     id = models.OneToOneField(User, on_delete=models.SET_NULL, null=True)
-    sending = models.BooleanField(default=True, verbose_name="Отправка")
-    receiving = models.BooleanField(default=True, verbose_name="Получение")
-    banking = models.BooleanField(default=True, verbose_name="Банковские услуги")
-    finance = models.BooleanField(default=True, verbose_name="Финансовые услуги")
-    purchase = models.BooleanField(default=True, verbose_name="Покупка товара")
-    business = models.BooleanField(default=True, verbose_name="Услуги для бизнеса")
-    other = models.BooleanField(default=True, verbose_name="Прочее")
     active = models.BooleanField(default=True, verbose_name="Окно активно")
+    services = JSONField(null=True)
 
 class LogWindows (models.Model):
     id_log = models.IntegerField(primary_key=True)
@@ -48,3 +43,5 @@ class Tickets (models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name="Пользователь")
     chief = models.BooleanField(default=False, verbose_name="Начальник")
+
+

@@ -24,8 +24,26 @@
     </div>
 
     <div class="settings-div-chld-two">
+        <div class="settings-div-chld-4">
+            <form action="" method="GET">
+            {% csrf_token %}
+            <table>
 
+            </table>
+            </form>
+        </div>
+        <div class="settings-div-chld-3">
+            <p class="index-center"><a class="settings-btn button-a" href="{% url 'register' %}">Создать новую учетную запись</a></p>
+        </div>
     </div>
 </div>
+
+{% endblock %}
+
+{% block scripts %}
+
+    {% load staticfiles %}
+    <script src="{% static 'app/scripts/myset.js'%}"> </script>
+    <script src="{% static 'app/scripts/settingso.js' %}"></script>
 
 {% endblock %}

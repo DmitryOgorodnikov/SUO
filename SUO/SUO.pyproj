@@ -87,6 +87,8 @@
     </Content>
     <Content Include="app\static\app\scripts\kiosk.js" />
     <Content Include="app\static\app\scripts\operator.js" />
+    <Content Include="app\static\app\scripts\settingsw.js" />
+    <Content Include="app\static\app\scripts\settingso.js" />
     <Content Include="app\static\app\scripts\settings.js" />
     <Content Include="app\static\app\scripts\statistics.open.js" />
     <Content Include="app\static\app\scripts\myset.js" />
@@ -128,6 +130,7 @@
     <Content Include="app\templates\app\layout.html" />
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />
+    <Content Include="config.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.html">
