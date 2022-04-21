@@ -13,6 +13,10 @@ class Windows (models.Model):
     active = models.BooleanField(default=True, verbose_name="Окно активно")
     services = JSONField(null=True)
 
+class Services (models.Model):
+    id_services = models.AutoField(primary_key=True, verbose_name="ID набора сервисов")
+    services = JSONField(null=True)
+
 class LogWindows (models.Model):
     id_log = models.IntegerField(primary_key=True)
     id_window = models.ForeignKey(Windows, on_delete=models.PROTECT, verbose_name="ID Окна")

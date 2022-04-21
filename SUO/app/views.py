@@ -5,7 +5,7 @@ from datetime import datetime
 from django.shortcuts import render, render_to_response
 from django.views.generic.list import ListView
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse, JsonResponse
-from .models import Tickets, Windows
+from .models import Tickets, Windows, Services
 from django.template import Template, RequestContext
 from .forms import UserRegistrationForm, UserChangeForm, WindowsAuthenticationForm
 from django.contrib.auth.models import User
@@ -111,7 +111,7 @@ def windows(request):
 def windowbutton(request):
     if request.GET.get('click', False):
         windows_l = []
-        for l in Windows.objects.filter(id = None).values_list('id_window'):
+        for l in Windows.objects.filter(id = None).filter(active = True).values_list('id_window').order_by('id_window'):
             windows_l.append(l[0])
 
         return JsonResponse({"windows_l": windows_l}, status=200)
@@ -286,11 +286,28 @@ def settingsw(request):
 def settingswtable(request):
     if request.GET.get('click', False):
         window = []
-        windows = Windows.objects.all()
+        windows = Windows.objects.all().order_by("id_window")
         for p in windows:
-            window.append([p.id_window])
+            window.append([p.id_window, p.active])
 
         return JsonResponse({"window": window}, status=200)
+
+def addwindow(request):
+    if request.GET.get('click', False):
+        number = Windows.objects.all().count()
+        window = Windows(id_window = number+1, services = Services.objects.latest('id_services').services)
+        window.save()
+        return JsonResponse({}, status=200)
+
+def changestatusw(request):
+    if request.GET.get('click', False):
+        window = Windows.objects.get(id_window = request.GET.get('idwindow'))
+        if window.active is True:
+            window.active = False
+        else:
+            window.active = True
+        window.save()
+        return JsonResponse({}, status=200)
 
 @login_required
 def settingso(request):

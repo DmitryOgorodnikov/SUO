@@ -9,11 +9,15 @@ import json
 @receiver(connection_created)
 def my_receiver(connection, **kwargs):
     with connection.cursor() as cursor:
-            from .models import Windows
+            from .models import Windows, Services
             with open('config.json', 'r') as f:
                 my_json_obj = json.load(f)
-            Window = Windows.objects.all()
-            for i in Window:
-                if i.services != my_json_obj: 
+            
+            lastserv = Services.objects.latest('id_services').services
+            if lastserv != my_json_obj:
+                service = Services (services=my_json_obj)
+                service.save()
+                Window = Windows.objects.all()
+                for i in Window:
                     i.services = my_json_obj
                     i.save()

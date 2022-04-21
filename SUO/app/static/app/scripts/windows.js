@@ -1,7 +1,7 @@
 $('#id_id_window').mouseenter(function () {
     $.ajax({
         url: "windowbutton",
-        method: 'GET', // or another (GET), whatever you need
+        method: 'GET',
         data: {
             click: true
         },
@@ -10,8 +10,6 @@ $('#id_id_window').mouseenter(function () {
             for (var i = 0; i < response.windows_l.length; i++) {
                 $('#id_id_window').prepend('<option value="'+ (i+1) +'">' + response.windows_l[i] + '</option>');
             }
-            // success callback
-            // you can process data returned by function from views.py
         }
     });
 });
@@ -19,7 +17,7 @@ $('#id_id_window').mouseenter(function () {
 $(function () {
     $.ajax({
         url: "windowbutton",
-        method: 'GET', // or another (GET), whatever you need
+        method: 'GET',
         data: {
             click: true
         },
@@ -29,8 +27,6 @@ $(function () {
             for (var i = 0; i < response.windows_l.length; i++) {
                 $('#id_id_window').prepend('<option value="' + (i + 1) + '">' + response.windows_l[i] + '</option>');
             }
-            // success callback
-            // you can process data returned by function from views.py
         }
     });
 });
