@@ -35,6 +35,7 @@ input[type="checkbox"].input-validation-error {
 
 .validation-summary-errors {
     color: #b94a48;
+    text-align: center;
 }
 
 .validation-summary-valid {
@@ -328,11 +329,27 @@ input[type="checkbox"].input-validation-error {
 .settings-div-chld-4 td {
     padding-top: 10px;
     padding-bottom: 10px;
+    border: hidden;
 }
 
 
 .table1 {
     width: 120px;
+}
+
+.table1w {
+    width: 250px;
+}
+
+.tablediv {
+    width: 250px;
+    margin: 0 auto;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.tablediv-input {
+    margin-top: 20px;
 }
 
 .table2 {

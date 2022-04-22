@@ -50,3 +50,16 @@ $('table').on('click', '#windowstatus', function () {
     });
 });
 
+$('table').on('click', '#windowchange', function () {
+    $.ajax({
+        url: "changeservicew",
+        method: 'GET',
+        data: {
+            idwindow: this.name,
+            click: true
+        },
+        success: function (response) {
+            window.location.href = "settingswchange"
+        }
+    });
+});

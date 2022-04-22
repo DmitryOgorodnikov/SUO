@@ -1,6 +1,7 @@
 """
 Definition of views.
 """
+
 from datetime import datetime
 from django.shortcuts import render, render_to_response
 from django.views.generic.list import ListView
@@ -19,6 +20,8 @@ from django.contrib.auth.models import User, Group
 from django.contrib.auth.decorators import login_required
 import urllib.parse
 import re
+import json
+import codecs
 from django.views.decorators.csrf import csrf_exempt
 
 from django.views.generic import DetailView
@@ -272,7 +275,6 @@ def settingstable(request):
 
 @login_required
 def settingsw(request):
-    """Renders the operator page."""
     assert isinstance(request, HttpRequest)
     return render(
         request,
@@ -308,6 +310,69 @@ def changestatusw(request):
             window.active = True
         window.save()
         return JsonResponse({}, status=200)
+
+def changeservicew(request):
+    if request.GET.get('click', False):
+        assert isinstance(request, HttpRequest)
+        idwindow = request.GET.get('idwindow')
+        request.session['idwindow'] = idwindow
+        return JsonResponse({}, status=200)
+
+def settingswchange(request):
+    if request.GET.get('click', False):
+        idwindow = request.session.get('idwindow')
+    else:
+        idwindow = request.session.get('idwindow')
+        assert isinstance(request, HttpRequest)
+        return render(
+            request,
+            'app/settingswchange.html',
+            {
+                'title':'Услуги окна',
+                'year':datetime.now().year,
+                'idwindow':idwindow,
+            }
+        )
+
+def wchange(request):
+    if request.GET.get('click', False):
+        listofcheck = request.GET.get('listofcheck')
+        listofcheck = listofcheck.split()
+        window = Windows.objects.get(id_window = request.session.get('idwindow'))
+        i = 0
+        for p in listofcheck:
+            window.services[i]['status'] = (p == 'true')
+            i += 1
+        window.save()
+        return JsonResponse({}, status=200)
+
+    if request.GET.get('click2', False):
+        listofcheck = request.GET.get('listofcheck')
+        listofcheck = listofcheck.split()
+        service = Services.objects.latest('id_services')
+        i = 0
+        for p in listofcheck:
+            service.services[i]['status'] = (p == 'true')
+            i += 1
+        listofservices = json.dumps(service.services, ensure_ascii=False)
+        #f = open('config.json', 'w', encoding='utf-8-sig')
+        #f.write(listofservices.encode('utf-8-sig'))
+        #with open("config.json", "w") as tfile:
+            #tfile.write(listofservices)
+        with codecs.open("config.json", "w", "utf-8-sig") as temp:
+            temp.write(listofservices)
+            temp.close()
+        service.save()
+        return JsonResponse({}, status=200)
+
+def servicestable(request):
+    if request.GET.get('click', False):
+        idwindow = request.session.get('idwindow')
+        serviceslist = Windows.objects.get(id_window = idwindow).services
+        return JsonResponse({'serviceslist':serviceslist}, status=200)
+    if request.GET.get('click2', False):
+        serviceslist = Services.objects.latest('id_services').services
+        return JsonResponse({'serviceslist':serviceslist}, status=200)
 
 @login_required
 def settingso(request):

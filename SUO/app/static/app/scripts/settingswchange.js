@@ -3,7 +3,7 @@ $(document).ready(function () {
         url: "servicestable",
         method: 'GET',
         data: {
-            click2: true
+            click: true
         },
         success: function (response) {
             arr = response.serviceslist;
@@ -33,7 +33,7 @@ $('.tablediv-input').click(function () {
         method: 'GET',
         data: {
             listofcheck: listofcheck.join(' '),
-            click2: true
+            click: true
         },
         success: function (response) {
             window.location.href = "../window"

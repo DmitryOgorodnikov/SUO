@@ -1,4 +1,5 @@
 {% extends "app/layout.html" %}
+{% load static %}
 
 {% block content %}
 
@@ -25,15 +26,15 @@
 
     <div class="settings-div-chld-two">
         <div class="settings-div-chld-4">
-            <form action="" method="GET">
-            {% csrf_token %}
-            <table>
+            <form action="." method="GET">
+                {% csrf_token %}
+                <div class="tablediv">
+                    <table>
 
-            </table>
+                    </table>
+                    <input type="button" value="Сохранить" class="btn btn-default btn-custom tablediv-input" />
+                </div>
             </form>
-        </div>
-        <div class="settings-div-chld-3">
-            <p class="index-center"><a class="settings-btn button-a" href="{% url 'register' %}">Создать новую учетную запись</a></p>
         </div>
     </div>
 </div>
