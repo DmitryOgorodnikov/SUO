@@ -334,6 +334,15 @@ def settingswchange(request):
             }
         )
 
+def servicestable(request):
+    if request.GET.get('click', False):
+        idwindow = request.session.get('idwindow')
+        serviceslist = Windows.objects.get(id_window = idwindow).services
+        return JsonResponse({'serviceslist':serviceslist}, status=200)
+    if request.GET.get('click2', False):
+        serviceslist = Services.objects.latest('id_services').services
+        return JsonResponse({'serviceslist':serviceslist}, status=200)
+
 def wchange(request):
     if request.GET.get('click', False):
         listofcheck = request.GET.get('listofcheck')
@@ -355,24 +364,20 @@ def wchange(request):
             service.services[i]['status'] = (p == 'true')
             i += 1
         listofservices = json.dumps(service.services, ensure_ascii=False)
-        #f = open('config.json', 'w', encoding='utf-8-sig')
-        #f.write(listofservices.encode('utf-8-sig'))
-        #with open("config.json", "w") as tfile:
-            #tfile.write(listofservices)
-        with codecs.open("config.json", "w", "utf-8-sig") as temp:
+        with codecs.open("services.json", "w", "utf-8-sig") as temp:
             temp.write(listofservices)
             temp.close()
         service.save()
+        ls = service.services
+        for s in ls:
+            if s['status'] == False:
+                ls.remove(s)
+        Window = Windows.objects.all()
+        for i in Window:
+            if len(i.services) != len(ls):
+                i.services = ls
+                i.save()
         return JsonResponse({}, status=200)
-
-def servicestable(request):
-    if request.GET.get('click', False):
-        idwindow = request.session.get('idwindow')
-        serviceslist = Windows.objects.get(id_window = idwindow).services
-        return JsonResponse({'serviceslist':serviceslist}, status=200)
-    if request.GET.get('click2', False):
-        serviceslist = Services.objects.latest('id_services').services
-        return JsonResponse({'serviceslist':serviceslist}, status=200)
 
 @login_required
 def settingso(request):

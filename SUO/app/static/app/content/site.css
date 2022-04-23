@@ -67,6 +67,10 @@ input[type="checkbox"].input-validation-error {
     text-align: center;
 }
 
+.text-red {
+    color: red;
+}
+
 .btn-custom {
     display: block;
     margin: auto;

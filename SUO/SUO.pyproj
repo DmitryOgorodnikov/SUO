@@ -133,6 +133,7 @@
     <Content Include="app\templates\app\login.html" />
     <Content Include="app\templates\app\loginpartial.html" />
     <Content Include="config.json" />
+    <Content Include="services.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="readme.html">

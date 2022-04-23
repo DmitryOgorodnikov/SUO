@@ -31,7 +31,7 @@ os.environ.setdefault(
 
 from app.models import Windows, Services
 
-with open('config.json', 'r', encoding='utf-8-sig') as f:
+with open('services.json', 'r', encoding='utf-8-sig') as f:
     my_json_obj = json.load(f)
     if Services.objects.all().exists() != False:
         lastserv = Services.objects.latest('id_services').services
@@ -40,9 +40,13 @@ with open('config.json', 'r', encoding='utf-8-sig') as f:
     if lastserv != my_json_obj:
         service = Services (services=my_json_obj)
         service.save()
+        ls = service.services
+        for s in ls:
+            if s['status'] == False:
+                ls.remove(s)
         Window = Windows.objects.all()
         for i in Window:
-            i.services = my_json_obj
+            i.services = ls
             i.save()
 
 # This application object is used by any WSGI server configured to use this
