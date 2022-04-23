@@ -37,6 +37,7 @@ urlpatterns = [
     path('settings/ops/wchange', views.wchange, name='wchange'),
     path('settings/ops/servicestable', views.servicestable, name='servicestable'),
     path('kiosk/', views.kiosk, name='kiosk'),
+    path('kiosk/kioskbtn', views.kioskbtn, name='kioskbtn'),
     path('kiosk/kbutton', views.kbutton, name='kbutton'),
     path('tickets/', 
          TicketsListCentral.as_view

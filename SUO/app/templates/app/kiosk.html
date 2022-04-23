@@ -15,21 +15,15 @@
 </head>
 
 <body class="kiosk-body">
-    <h4 class="kiosk-h">ПОЧТА РОССИИ     999999                            10:34 27 ноября 2021</h4>
-    <div class="kiosk-div settings-btn" id="buttonSend">
-         Отправить
-    </div>
-    <div class="kiosk-div kiosk-div-bottom settings-btn" id="buttonReceive">
-        Получить
-    </div>
-
-    {% block scripts %}
+    <h4 class="kiosk-h">ПОЧТА РОССИИ 999999                                                                     10:34 27 ноября 2021</h4>
+    <div class="kiosk-div"></div>
+</body>
+</html>
+{% block scripts %}
     <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
     <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
     <script src="{% static 'app/scripts/respond.js' %}"></script>
         {% load staticfiles %}
     <script src="{% static 'app/scripts/kiosk.js' %}"></script>
     <script src="{% static 'app/scripts/myset.js'%}"> </script>
-    {% endblock %}
-</body>
-</html>
+{% endblock %}

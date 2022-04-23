@@ -1,29 +1,33 @@
-$('#buttonSend').click(function () {
+$(document).ready(function () {
     $.ajax({
-        url: "kbutton",
-        method: 'POST', // or another (GET), whatever you need
+        url: "kioskbtn",
+        method: 'GET',
         data: {
-            name: 'S',
             click: true
         },
-        success: function (data) {
-            // success callback
-            // you can process data returned by function from views.py
+        success: function (response) {
+            arr = response.serviceslist;
+            arr.reverse();
+            arr.forEach(function (item, i, arr) {
+                if (item['status'] != true)
+                    delete arr[i]
+                else
+                    $('.kiosk-div').prepend('<div class="kiosk-div-button settings-btn" id="buttonticket" name="' + item['rusname'] +'"><p>' + item['rusname'] +'</p></div>');
+            });
         }
     });
 });
 
-$('#buttonReceive').click(function () {
+$('.kiosk-div').on('click', '#buttonticket', function () {
     $.ajax({
         url: "kbutton",
-        method: 'POST', // or another (GET), whatever you need
+        method: 'POST',
         data: {
-            name: 'R',
+            name: $(this).attr("name"),
             click: true
         },
         success: function (data) {
-            // success callback
-            // you can process data returned by function from views.py
+
         }
     });
 });

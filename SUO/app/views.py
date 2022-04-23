@@ -52,6 +52,11 @@ def kiosk(request):
         }
     )
 
+def kioskbtn(request):
+    if request.GET.get('click', False):
+        serviceslist = Services.objects.latest('id_services').services
+        return JsonResponse({'serviceslist':serviceslist}, status=200)
+
 def kbutton(request):
     if request.POST.get('click', False):
         Ticket = Tickets()
@@ -59,21 +64,37 @@ def kbutton(request):
             Ticket.id_ticket = 0
         else:
             Ticket.id_ticket = Tickets.objects.latest("id_ticket").id_ticket + 1
-        name = request.POST.get('name', None)
-        if name == "S":
-            if Tickets.objects.filter(name_ticket__iregex=r'О...').exists() == False:
-                Ticket.name_ticket = 'О' + '001'
+        t = datetime.now().date()
+        name = request.POST.get('name')
+        Ticket.service_p = name
+        name = name.split()
+        if len(name) == 3:
+            name = list(name[0])[0] + list(name[1])[0] + list(name[2])[0]
+            if Tickets.objects.filter(time_create__contains = t).filter(name_ticket__iregex=r''+ name +'\s...').exists() == False:
+                r = name + ' 001'
             else:
-                r = Tickets.objects.filter(name_ticket__iregex=r'О...').latest("name_ticket").name_ticket
-                r = int(r[1:4]) + 1
-                Ticket.name_ticket = 'О' + '{:03}'.format(r)
+                r = Tickets.objects.filter(time_create__contains = t).filter(name_ticket__iregex=r''+ name +'\s...').latest("id_ticket").name_ticket
+                x = int(r[-3:]) + 1
+                r = r[0:3] + ' ' + str(f'{x:03}')
+
+        elif len(name) == 2:
+            name = list(name[0])[0] + list(name[1])[0]
+            if Tickets.objects.filter(time_create__contains = t).filter(name_ticket__iregex=r''+ name +'\s...').exists() == False:
+                r = name + ' 001'
+            else:
+                r = Tickets.objects.filter(time_create__contains = t).filter(name_ticket__iregex=r''+ name +'\s...').latest("id_ticket").name_ticket
+                x = int(r[-3:]) + 1
+                r = r[0:2] + ' ' + str(f'{x:03}')
+
         else:
-            if Tickets.objects.filter(name_ticket__iregex=r'П...').exists() == False:
-                Ticket.name_ticket = 'П' + '001'
+            name = list(name[0])[0]
+            if Tickets.objects.filter(time_create__contains = t).filter(name_ticket__iregex=r''+ name +'\s...').exists() == False:
+                r = name + ' 001'
             else:
-                r = Tickets.objects.filter(name_ticket__iregex=r'П...').latest("name_ticket").name_ticket
-                r = int(r[1:4]) + 1
-                Ticket.name_ticket = 'П' + '{:03}'.format(r)
+                r = Tickets.objects.filter(time_create__contains = t).filter(name_ticket__iregex=r''+ name +'\s...').latest("id_ticket").name_ticket
+                x = int(r[-3:]) + 1
+                r = r[0:1] + ' ' + str(f'{x:03}')
+        Ticket.name_ticket = r
         Ticket.save()
         return HttpResponseRedirect('../kiosk/')
 
