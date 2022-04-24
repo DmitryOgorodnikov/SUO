@@ -81,11 +81,15 @@
     <Folder Include="SUO\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="app\static\app\content\bootstrap.min.css" />
+    <Content Include="app\static\app\content\bootstrap.min - bk.css" />
+    <Content Include="app\static\app\content\modal.css" />
     <Content Include="app\static\app\fonts\helveticaneuecyr-roman.ttf" />
     <Content Include="app\static\app\img\Russian_Post.png">
       <Publish>False</Publish>
     </Content>
     <Content Include="app\static\app\scripts\kiosk.js" />
+    <Content Include="app\static\app\scripts\modal.js" />
     <Content Include="app\static\app\scripts\operator.js" />
     <Content Include="app\static\app\scripts\settingsw.js" />
     <Content Include="app\static\app\scripts\settings.js" />
@@ -105,7 +109,6 @@
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />
     <Content Include="app\static\app\content\bootstrap.css" />
-    <Content Include="app\static\app\content\bootstrap.min.css" />
     <Content Include="app\static\app\content\site.css" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="app\static\app\fonts\glyphicons-halflings-regular.svg" />

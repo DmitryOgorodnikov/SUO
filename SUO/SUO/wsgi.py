@@ -33,6 +33,7 @@ from app.models import Windows, Services
 
 with open('services.json', 'r', encoding='utf-8-sig') as f:
     my_json_obj = json.load(f)
+
     if Services.objects.all().exists() != False:
         lastserv = Services.objects.latest('id_services').services
     else:

@@ -44,11 +44,15 @@ class TicketsListView(SingleTableView):
 def kiosk(request):
     """Renders the kiosk page."""
     assert isinstance(request, HttpRequest)
+    with open('config.json', 'r', encoding='utf-8-sig') as f:
+        my_json_obj = json.load(f)
+        opsname = my_json_obj[0]['name']
     return render(
         request,
         'app/kiosk.html',
         {
             'title':'Киоск',
+            'opsname': opsname,
         }
     )
 
@@ -96,7 +100,7 @@ def kbutton(request):
                 r = r[0:1] + ' ' + str(f'{x:03}')
         Ticket.name_ticket = r
         Ticket.save()
-        return HttpResponseRedirect('../kiosk/')
+        return JsonResponse({'ticketname':r}, status=200)
 
 @login_required
 def home(request):
@@ -263,12 +267,16 @@ def breakbutton(request):
 def settings(request):
     """Renders the operator page."""
     assert isinstance(request, HttpRequest)
+    with open('config.json', 'r', encoding='utf-8-sig') as f:
+        my_json_obj = json.load(f)
+        opsname = my_json_obj[0]['name']
     return render(
         request,
         'app/settings.html',
         {
             'title':'Операторы',
             'year':datetime.now().year,
+            'opsname': opsname,
         }
     )
 
@@ -297,12 +305,16 @@ def settingstable(request):
 @login_required
 def settingsw(request):
     assert isinstance(request, HttpRequest)
+    with open('config.json', 'r', encoding='utf-8-sig') as f:
+        my_json_obj = json.load(f)
+        opsname = my_json_obj[0]['name']
     return render(
         request,
         'app/settingsw.html',
         {
             'title':'Окна',
             'year':datetime.now().year,
+            'opsname':opsname,
         }
     )
 
@@ -404,12 +416,16 @@ def wchange(request):
 def settingso(request):
     """Renders the operator page."""
     assert isinstance(request, HttpRequest)
+    with open('config.json', 'r', encoding='utf-8-sig') as f:
+        my_json_obj = json.load(f)
+        opsname = my_json_obj[0]['name']
     return render(
         request,
         'app/settingso.html',
         {
             'title':'ОПС',
             'year':datetime.now().year,
+            'opsname':opsname,
         }
     )
 

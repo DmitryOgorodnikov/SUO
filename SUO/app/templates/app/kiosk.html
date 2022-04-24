@@ -10,14 +10,20 @@
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/bootstrap.min.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'app/content/site.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'app/content/modal.css' %}" />
     <link rel="stylesheet" type="text/css" href="{% static 'django_tables2/themes/paleblue/css/screen.css' %}" />
     <script src="{% static 'app/scripts/modernizr-2.6.2.js' %}"></script>
+    <div class="print" id="print-text">Текст</div>
 </head>
 
 <body class="kiosk-body">
-    <h4 class="kiosk-h">ПОЧТА РОССИИ 999999                                                                     10:34 27 ноября 2021</h4>
+    <p class="kiosk-h">     ОПС {{opsname}}                        <span id="hour">hh</span>:<span id="min">mm</span> <span id="day">dd</span>.<span id="month">mm</span>.<span id="year">yy</span></p>
     <div class="kiosk-div"></div>
 </body>
+
+<h1 class="print" id="print-title">Талон</h1>
+<div class="print" id="print-text"></div>
+
 </html>
 {% block scripts %}
     <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
@@ -25,5 +31,6 @@
     <script src="{% static 'app/scripts/respond.js' %}"></script>
         {% load staticfiles %}
     <script src="{% static 'app/scripts/kiosk.js' %}"></script>
+    <script src="{% static 'app/scripts/modal.js' %}"></script>
     <script src="{% static 'app/scripts/myset.js'%}"> </script>
 {% endblock %}

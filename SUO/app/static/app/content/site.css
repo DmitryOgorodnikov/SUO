@@ -548,7 +548,7 @@ fieldset[disabled] .settings-btn {
     color: #1331ff;
     font-family: 'abc';
     font-weight: bold;
-    font-size: 30px;
+    font-size: 50px;
     white-space: pre-wrap;
 }
 
@@ -645,4 +645,8 @@ fieldset[disabled] .settings-btn {
 
 .margin100 {
     margin-top: 100px;
+}
+
+.print {
+    visibility: hidden;
 }
