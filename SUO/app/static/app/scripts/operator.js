@@ -52,6 +52,33 @@ $('#Break').click(function () {
 if (localStorage.getItem('ticket') === null) {
     localStorage.setItem('ticket', 'Текущий талон: ');
 }
+
+$('#Change').click(function () {
+    $.ajax({
+        url: "operatorbutton",
+        method: 'GET',
+        data: {
+            click: true
+        },
+        success: function (response) {
+            window.location.href = "/windows/login/"
+        }
+    });
+});
+
+$('#Logout').click(function () {
+    $.ajax({
+        url: "operatorbutton",
+        method: 'GET',
+        data: {
+            click: true
+        },
+        success: function (response) {
+            window.location.href = "/logout/"
+        }
+    });
+});
+
 let id = setInterval(update, 500);
 function update() {
     var date = new Date()

@@ -9,13 +9,13 @@
             <p class="index-center">Окно {{ window_id }}</p>
         </div>
         <div class="nav-block1 nav-block1-operator">
-            <a class="btn btn-default btn-index" href="{% url 'windows' %}">Сменить</a>
+            <a class="btn btn-default btn-index" id="Change">Сменить</a>
         </div>
         <div class="nav-block1 nav-block2 nav-block2-w nav-block1-operator2">
             <p class="index-center">{{user.get_username}}</p>
         </div>
         <div class="nav-block1 nav-block3 ">
-            <a class="btn btn-default btn-index" href="{% url 'logout' %}">Выйти</a>
+            <a class="btn btn-default btn-index" id="Logout">Выйти</a>
         </div>
     </div>
 </nav>

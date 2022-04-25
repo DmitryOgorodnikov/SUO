@@ -30,3 +30,17 @@ $(function () {
         }
     });
 });
+
+$('#Enter').click(function () {
+    $.ajax({
+        url: "windowbutton",
+        method: 'POST',
+        data: {
+            name: $('select option:selected').text(),
+            click: true
+        },
+        success: function (response) {
+            window.location.href = "../operator/"
+        }
+    });
+});

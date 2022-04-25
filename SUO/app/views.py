@@ -118,22 +118,15 @@ def home(request):
 
 @login_required
 def windows(request):
-
-    if request.method == "POST":
-        window_id = request.POST.get("id_window")
-        request.session['window_id'] = window_id
-        return HttpResponseRedirect('../operator/')
-    else:
-        request.session['window_id'] = ''
-        form = WindowsAuthenticationForm()
-        return render(
-            request,
-            'app/windows.html',
-            {
-                'title':'Окна',
-                'year':datetime.now().year,
-                'form': form,
-            }
+    form = WindowsAuthenticationForm()
+    return render(
+        request,
+        'app/windows.html',
+        {
+            'title':'Окна',
+            'year':datetime.now().year,
+            'form': form,
+        }
     )
 
 def windowbutton(request):
@@ -143,6 +136,19 @@ def windowbutton(request):
             windows_l.append(l[0])
 
         return JsonResponse({"windows_l": windows_l}, status=200)
+
+    if request.POST.get('click', False):
+        window_id = request.POST.get("name")
+        request.session['window_id'] = window_id
+        window = Windows.objects.get(id_window = window_id)
+        user = User.objects.get(username=request.user)
+        window.id = user
+        window.save()
+        return JsonResponse({}, status=200)
+
+    #elif (request.session.get('window_id') != None ):
+        #return HttpResponseRedirect('../operator/')
+
 
 
 @login_required
@@ -160,17 +166,33 @@ def operator(request):
         }
     )
 
-def nextbutton(request):
+def operatorbutton(request):
+    window_id = request.session.get('window_id')
     if request.GET.get('click', False):
-        if Tickets.objects.filter(time_close = None).exists() == False:
+        window = Windows.objects.get(id_window = window_id)
+        window.id = None
+        window.save()
+        request.session['window_id'] = None
+        return JsonResponse({}, status=200)
+
+def nextbutton(request):
+    t = datetime.now().date()
+    #request.session['Ticket_n'] = None
+    if request.GET.get('click', False):
+        service = Windows.objects.get(id_window = request.session.get('window_id')).services
+        services = []
+        for ser in service:
+            if ser['status'] == True:
+                services.append(ser['rusname'])
+
+        if (Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = None).filter(service_p__in = services).exists() == False) and (Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = request.session.get('window_id')).filter(service_p__in = services).exists() == False):
             ticket = 'Текущий талон: Нет талонов в очереди'
             request.session['ticket'] = ticket
-
             return JsonResponse({"ticket": ticket}, status=200)
 
-        if request.session.get('Ticket_n') is None:
+        elif request.session.get('Ticket_n') is None:
             window_id = request.session.get('window_id')
-            Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
+            Ticket = Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = None).filter(service_p__in = services).earliest('id_ticket')
             Ticket.id_window = Windows.objects.get(id_window=window_id)
             Ticket.time_call = datetime.now()
             Ticket.save()
@@ -187,19 +209,20 @@ def nextbutton(request):
 
 
         else:
-            Ticket = (Tickets.objects.filter(id_ticket=request.session.get('Ticket_n')))[0]
+            id=request.session.get('Ticket_n')
+            Ticket = Tickets.objects.get(id_ticket=request.session.get('Ticket_n'))
             Ticket.time_close = datetime.now()
             Ticket.status = 'Закрыт'
             Ticket.save()
 
-            if Tickets.objects.filter(time_close = None).exists() == False:
+            if Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = None).filter(service_p__in = services).exists() == False:
                 ticket = 'Текущий талон: Нет талонов в очереди'
                 request.session['ticket'] = ticket
                 request.session['Ticket_n'] = None
                 return JsonResponse({"ticket": ticket}, status=200)
 
             window_id = request.session.get('window_id')
-            Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
+            Ticket = Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(service_p__in = services).filter(id_window = None).filter(service_p__in = services).earliest('id_ticket')
             Ticket.id_window = Windows.objects.get(id_window=window_id)
             Ticket.time_call = datetime.now()
             Ticket.save()
@@ -216,21 +239,21 @@ def nextbutton(request):
 
 
 def cancelbutton(request):
+    t = datetime.now().date()
     if request.GET.get('click', False):
-
         Ticket = (Tickets.objects.filter(id_ticket=request.session.get('Ticket_n')))[0]
         Ticket.time_close = datetime.now()
         Ticket.status = 'Отменен'
         Ticket.save()
 
-        if Tickets.objects.filter(time_close = None).exists() == False:
+        if Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = None).filter(service_p__in = services).exists() == False:
             ticket = 'Текущий талон: Нет талонов в очереди'
             request.session['ticket'] = ticket
             request.session['Ticket_n'] = None
             return JsonResponse({"ticket": ticket}, status=200)
 
         window_id = request.session.get('window_id')
-        Ticket = Tickets.objects.filter(time_close = None).earliest('id_ticket')
+        Ticket = Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = None).filter(service_p__in = services).earliest('id_ticket')
         Ticket.id_window = Windows.objects.get(id_window=window_id)
         Ticket.time_call = datetime.now()
         Ticket.save()

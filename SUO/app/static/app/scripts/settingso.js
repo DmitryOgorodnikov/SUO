@@ -36,7 +36,7 @@ $('.tablediv-input').click(function () {
             click2: true
         },
         success: function (response) {
-            window.location.href = "../window"
+            window.location.href = "../ops"
         }
     });
 });

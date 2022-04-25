@@ -64,6 +64,7 @@ urlpatterns = [
     path('windows/login/', views.windows, name='windows'),
     path('windows/login/windowbutton', views.windowbutton, name='windowbutton'),
     path('windows/operator/', views.operator, name='operator'),
+    path('windows/operator/operatorbutton', views.operatorbutton, name='operatorbutton'),
     path('windows/operator/nextbutton', views.nextbutton, name='nextbutton'),
     path('windows/operator/cancelbutton', views.cancelbutton, name='cancelbutton'),
     path('windows/operator/breakbutton', views.breakbutton, name='breakbutton'),

@@ -21,15 +21,14 @@ from django.core.wsgi import get_wsgi_application
 
 from django.dispatch import receiver
 from django.db.backends.signals import connection_created
+from app.models import Windows, Services, Tickets
+from datetime import datetime
 import json
 
 os.environ.setdefault(
     'DJANGO_SETTINGS_MODULE',
     'SUO.settings')
 
-
-
-from app.models import Windows, Services
 
 with open('services.json', 'r', encoding='utf-8-sig') as f:
     my_json_obj = json.load(f)
@@ -49,6 +48,14 @@ with open('services.json', 'r', encoding='utf-8-sig') as f:
         for i in Window:
             i.services = ls
             i.save()
+
+    t = datetime.now().date()
+    if Tickets.objects.exclude(time_create__contains = t).filter(time_close = None).exists() != False:
+        ticketslist = Tickets.objects.exclude(time_create__contains = t).filter(time_close = None)
+        for t in ticketslist:
+            t.status = 'Истек'
+            t.time_close = datetime.now()
+            t.save()
 
 # This application object is used by any WSGI server configured to use this
 # file. This includes Django's development server, if the WSGI_APPLICATION
