@@ -118,16 +118,27 @@ def home(request):
 
 @login_required
 def windows(request):
-    form = WindowsAuthenticationForm()
-    return render(
-        request,
-        'app/windows.html',
-        {
-            'title':'Окна',
-            'year':datetime.now().year,
-            'form': form,
-        }
-    )
+    #if (request.session.get('window_id') != None ):
+    #    return HttpResponseRedirect('../operator/')
+    if (Windows.objects.filter(id = request.user).exists() != False):
+        window = Windows.objects.get(id = request.user)
+        window_id = window.id_window
+        request.session['window_id'] = window_id
+        user = User.objects.get(username=request.user)
+        window.id = user
+        window.save()
+        return HttpResponseRedirect('../operator/')
+    else:
+        form = WindowsAuthenticationForm()
+        return render(
+            request,
+            'app/windows.html',
+            {
+                'title':'Окна',
+                'year':datetime.now().year,
+                'form': form,
+            }
+        )
 
 def windowbutton(request):
     if request.GET.get('click', False):
@@ -241,6 +252,12 @@ def nextbutton(request):
 def cancelbutton(request):
     t = datetime.now().date()
     if request.GET.get('click', False):
+        service = Windows.objects.get(id_window = request.session.get('window_id')).services
+        services = []
+        for ser in service:
+            if ser['status'] == True:
+                services.append(ser['rusname'])
+
         Ticket = (Tickets.objects.filter(id_ticket=request.session.get('Ticket_n')))[0]
         Ticket.time_close = datetime.now()
         Ticket.status = 'Отменен'
