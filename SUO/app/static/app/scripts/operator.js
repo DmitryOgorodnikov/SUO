@@ -7,6 +7,7 @@ $('#Next').click(function () {
         },
         success: function (response) {
             $('#ta').text(response.ticket);
+            $('#tb').text(response.service);
             localStorage.setItem('ticket', response.ticket)
             localStorage.setItem('hour', response.hour)
             localStorage.setItem('minute', response.minute)
@@ -24,6 +25,7 @@ $('#Cancel').click(function () {
         },
         success: function (response) {
             $('#ta').text(response.ticket);
+            $('#tb').text(response.service);
             localStorage.setItem('ticket', response.ticket)
             localStorage.setItem('hour', response.hour)
             localStorage.setItem('minute', response.minute)
@@ -41,6 +43,7 @@ $('#Break').click(function () {
         },
         success: function (response) {
             $('#ta').text(response.ticket);
+            $('#tb').text(response.service);
             localStorage.setItem('ticket', response.ticket)
             localStorage.setItem('hour', response.hour)
             localStorage.setItem('minute', response.minute)

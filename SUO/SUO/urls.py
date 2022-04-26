@@ -6,7 +6,7 @@ from django.urls import path, include
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from app import forms, views
-from app.views import TicketsListView, TicketsListCentral, register
+from app.views import TicketsListCentral, register
 from tastypie.api import Api
 from SUO.resources import TicketsResource, WindowsResource
 
@@ -50,17 +50,8 @@ urlpatterns = [
              }
          ),
          name='tickets'),
-    path('statistics/', 
-         TicketsListView.as_view
-         (
-             template_name='app/statistics.html',
-             extra_context=
-             {
-                'title':'Статистика',
-                'year':datetime.now().year,
-             }
-         ),
-         name='statistics'),
+    path('statistics/', views.statistics, name='statistics'),
+    path('statistics/statisticstable', views.statisticstable, name='statisticstable'),
     path('windows/login/', views.windows, name='windows'),
     path('windows/login/windowbutton', views.windowbutton, name='windowbutton'),
     path('windows/operator/', views.operator, name='operator'),

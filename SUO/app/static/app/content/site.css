@@ -227,42 +227,37 @@ input[type="checkbox"].input-validation-error {
     position: relative;
 }
 .statistics-div-chld {
-    width: 80%;
-    height: 30px;
+    width: 15%;
+    height: 180px;
     position: absolute;
-    float: left;
-    top: 2px;
+    top: 2%;
     bottom: 0%;
     margin-bottom: 20px;
-    left: 10%;
+    left: 4%;
     background-color: #f8f9fa;
     border-width: 2px;
     border-color: #ccc;
     border: 1px solid rgba(0,0,0,.125);
     border-radius: 10px;
-    text-align: center;
+    padding-top: 20px;
+    padding-left: 5px;
 }
 
 .statistics-div-chld-two {
-    width: 70%;
+    width: 85%;
     height: 580px;
     position: absolute;
     top: 13px;
     bottom: 0%;
     margin-bottom: 20px;
-    left: 30%;
-    background-color: #f8f9fa;
-    border-width: 2px;
-    border-color: #ccc;
-    border: 1px solid rgba(0,0,0,.125);
-    border-radius: 10px;
+    left: 20%;
     text-align: center;
     padding-top: 0px;
 }
 
 .settings-div-chld {
     width: 25%;
-    height: 200px;
+    height: 220px;
     position: absolute;
     top: 2%;
     bottom: 0%;
@@ -649,4 +644,46 @@ fieldset[disabled] .settings-btn {
 
 .print {
     visibility: hidden;
+}
+
+.stattable {
+    width: 100%;
+    border: 1px solid rgba(0,0,0,.125);
+    border-color: #ccc;
+    font-size: 16px;
+}
+
+.stattable th {
+    height: 25px;
+    border: 1px solid rgba(0,0,0,.125);
+    padding-left: 5px;
+    padding-right: 5px;
+    vertical-align: middle;
+}
+
+.stattable td {
+    height: 70px;
+    border: 1px solid rgba(0,0,0,.125);
+    text-align: left;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.return-btn{
+    margin-top: 20px;
+}
+
+.buttontable {
+    width: 400px;
+    margin-bottom: 5px;
+}
+
+.buttontable button{
+    height: 30px;
+    width: 100px;
+}
+
+.button-select {
+    background-color: #0021c3;
+    color: white;
 }

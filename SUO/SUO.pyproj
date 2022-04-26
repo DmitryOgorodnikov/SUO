@@ -91,6 +91,7 @@
     <Content Include="app\static\app\scripts\kiosk.js" />
     <Content Include="app\static\app\scripts\modal.js" />
     <Content Include="app\static\app\scripts\operator.js" />
+    <Content Include="app\static\app\scripts\statistics.js" />
     <Content Include="app\static\app\scripts\settingsw.js" />
     <Content Include="app\static\app\scripts\settings.js" />
     <Content Include="app\static\app\scripts\settingso.js" />

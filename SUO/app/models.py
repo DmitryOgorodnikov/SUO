@@ -29,6 +29,7 @@ class Tickets (models.Model):
     service_p = models.CharField(null=True, max_length=50, verbose_name="Услуга")
     status = models.CharField(null=True, max_length=50, verbose_name="Статус")
     id_window = models.ForeignKey(Windows, null=True, on_delete=models.PROTECT, verbose_name="Окно")
+    operator = models.CharField(null=True, max_length=200, verbose_name="Оператор")
     name_ticket = models.CharField(max_length=50, verbose_name="Талон")
     time_create = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
     time_call = models.DateTimeField(null=True, verbose_name="Время вызова")
