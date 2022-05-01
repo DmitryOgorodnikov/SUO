@@ -27,7 +27,7 @@
     </div>
     <div class="settings-div-chld-two">
         <div class="settings-div-chld-4">
-            <form action="" method="GET">
+            <form action="" method="POST">
             {% csrf_token %}
                 <table>
 
@@ -43,9 +43,12 @@
 {% endblock %}
 
 {% block scripts %}
-
+    <script src="{% static 'app/scripts/jquery-1.10.2.js' %}"></script>
+    <script src="{% static 'app/scripts/bootstrap.js' %}"></script>
+    <script src="{% static 'app/scripts/respond.js' %}"></script>
     {% load staticfiles %}
     <script src="{% static 'app/scripts/myset.js'%}"> </script>
     <script src="{% static 'app/scripts/settings.js' %}"></script>
+    <script src="{% static 'app/scripts/modal.js' %}"></script>
 
 {% endblock %}

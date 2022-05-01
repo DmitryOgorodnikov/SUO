@@ -45,7 +45,7 @@
 .modal__header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
     padding: 15px;
     border-bottom: 1px solid #eceeef;
 }
@@ -96,3 +96,14 @@
     border-bottom-right-radius: 0.3rem;
     border-bottom-left-radius: 0.3rem;
 }
+
+.btn-1 {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.btn-2 {
+    margin-left: 5px;
+    margin-right: 5px;
+}
+

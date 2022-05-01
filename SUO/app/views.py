@@ -247,7 +247,7 @@ def operatorbutton(request):
 def nextbutton(request):
     t = datetime.now().date()
     #request.session['Ticket_n'] = None
-    if request.GET.get('click', False):
+    if request.POST.get('click', False):
         service = Windows.objects.get(id_window = request.session.get('window_id')).services
         services = []
         for ser in service:
@@ -318,7 +318,7 @@ def nextbutton(request):
 
 def cancelbutton(request):
     t = datetime.now().date()
-    if request.GET.get('click', False):
+    if request.POST.get('click', False):
         service = Windows.objects.get(id_window = request.session.get('window_id')).services
         services = []
         for ser in service:
@@ -358,7 +358,7 @@ def cancelbutton(request):
         return JsonResponse({"ticket": ticket, 'service': service, "hour": hour, "minute": minute, "second": second}, status=200)
 
 def breakbutton(request):
-    if request.GET.get('click', False):
+    if request.POST.get('click', False):
 
         Ticket = (Tickets.objects.filter(id_ticket=request.session.get('Ticket_n')))[0]
         Ticket.time_close = datetime.now()
@@ -395,20 +395,20 @@ def settings(request):
     )
 
 def delbutton(request):
-    if request.GET.get('click', False):
-        Userdel = (User.objects.filter(id=request.GET.get('idbutton')))[0]
+    if request.POST.get('click', False):
+        Userdel = (User.objects.filter(id=request.POST.get('idbutton')))[0]
         Userdel.delete()
 
         return JsonResponse({}, status=200)
 
 def edituser(request):
-    if request.GET.get('click', False):
-        Useredit = (User.objects.filter(id=request.GET.get('idbutton')))[0]
+    if request.POST.get('click', False):
+        Useredit = (User.objects.filter(id=request.POST.get('idbutton')))[0]
         request.session['useredit'] = Useredit.id
         return JsonResponse({}, status=200)
 
 def settingstable(request):
-    if request.GET.get('click', False):
+    if request.POST.get('click', False):
         user = []
         users = User.objects.exclude(username = 'admin')
         for p in users:
@@ -442,15 +442,15 @@ def settingswtable(request):
         return JsonResponse({"window": window}, status=200)
 
 def addwindow(request):
-    if request.GET.get('click', False):
+    if request.POST.get('click', False):
         number = Windows.objects.all().count()
         window = Windows(id_window = number+1, services = Services.objects.latest('id_services').services)
         window.save()
         return JsonResponse({}, status=200)
 
 def changestatusw(request):
-    if request.GET.get('click', False):
-        window = Windows.objects.get(id_window = request.GET.get('idwindow'))
+    if request.POST.get('click', False):
+        window = Windows.objects.get(id_window = request.POST.get('idwindow'))
         if window.active is True:
             window.active = False
         else:
@@ -459,14 +459,14 @@ def changestatusw(request):
         return JsonResponse({}, status=200)
 
 def changeservicew(request):
-    if request.GET.get('click', False):
+    if request.POST.get('click', False):
         assert isinstance(request, HttpRequest)
-        idwindow = request.GET.get('idwindow')
+        idwindow = request.POST.get('idwindow')
         request.session['idwindow'] = idwindow
         return JsonResponse({}, status=200)
 
 def settingswchange(request):
-    if request.GET.get('click', False):
+    if request.POST.get('click', False):
         idwindow = request.session.get('idwindow')
     else:
         idwindow = request.session.get('idwindow')
@@ -503,7 +503,7 @@ def wchange(request):
         return JsonResponse({}, status=200)
 
     if request.GET.get('click2', False):
-        listofcheck = request.GET.get('listofcheck')
+        listofcheck = request.POST.get('listofcheck')
         listofcheck = listofcheck.split()
         service = Services.objects.latest('id_services')
         i = 0

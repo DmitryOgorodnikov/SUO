@@ -30,7 +30,7 @@ $('.tablediv-input').click(function () {
     JSON.stringify(listofcheck);
     $.ajax({
         url: "wchange",
-        method: 'GET',
+        method: 'POST',
         data: {
             listofcheck: listofcheck.join(' '),
             click2: true

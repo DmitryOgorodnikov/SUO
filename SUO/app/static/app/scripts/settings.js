@@ -1,7 +1,20 @@
+var modal;
+var name;
+del_finction = null;
+
 $(document).ready(function () {
+    var elemTarget;
+    modal = $modal({
+        title: '<h2>Вы уверены?</h2>',
+        content: '<h3>Пользователь будет удален окончательно, но он не исчезнет из описания талонов, закрытых им.</h3>',
+        footerButtons: [
+            { class: 'btn btn-2', text: 'Да', handler: 'Ok' },
+            { class: 'btn btn-1', text: 'Отмена', handler: 'Cancel' }
+        ]
+    });
     $.ajax({
         url: "settingstable",
-        method: 'GET',
+        method: 'POST',
         data: {
             click: true
         },
@@ -17,23 +30,34 @@ $(document).ready(function () {
 });
 
 $('table').on('click', '#Del', function () {
+    name = this.name;
+    modal.show();
+});
+
+$('body').on('click', "[data-handler='Ok']", function () {
     $.ajax({
         url: "delbutton",
-        method: 'GET',
+        method: 'POST',
         data: {
-            idbutton: this.name,
+            idbutton: name,
             click: true
         },
         success: function (response) {
             location.reload();
         }
     });
+    modal.hide();
 });
+
+$('body').on('click', "[data-handler='Cancel']", function () {
+    modal.hide();
+});
+
 
 $('table').on('click', '#Edit', function () {
     $.ajax({
         url: "edituser",
-        method: 'GET',
+        method: 'POST',
         data: {
             idbutton: this.name,
             click: true

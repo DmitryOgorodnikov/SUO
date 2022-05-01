@@ -25,7 +25,7 @@ $(document).ready(function () {
 $('#Add').click(function () {
     $.ajax({
         url: "addwindow",
-        method: 'GET',
+        method: 'POST',
         data: {
             click: true
         },
@@ -38,7 +38,7 @@ $('#Add').click(function () {
 $('table').on('click', '#windowstatus', function () {
     $.ajax({
         url: "changestatusw",
-        method: 'GET',
+        method: 'POST',
         data: {
             idwindow: this.name,
             action: this.value,
@@ -53,7 +53,7 @@ $('table').on('click', '#windowstatus', function () {
 $('table').on('click', '#windowchange', function () {
     $.ajax({
         url: "changeservicew",
-        method: 'GET',
+        method: 'POST',
         data: {
             idwindow: this.name,
             click: true

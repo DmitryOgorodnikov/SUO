@@ -1,7 +1,7 @@
 $('#Next').click(function () {
     $.ajax({
         url: "nextbutton",
-        method: 'GET',
+        method: 'POST',
         data: {
             click: true
         },
@@ -19,7 +19,7 @@ $('#Next').click(function () {
 $('#Cancel').click(function () {
     $.ajax({
         url: "cancelbutton",
-        method: 'GET',
+        method: 'POST',
         data: {
             click: true
         },
@@ -37,7 +37,7 @@ $('#Cancel').click(function () {
 $('#Break').click(function () {
     $.ajax({
         url: "breakbutton",
-        method: 'GET',
+        method: 'POST',
         data: {
             click: true
         },
