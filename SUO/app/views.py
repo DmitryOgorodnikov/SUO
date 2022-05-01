@@ -502,7 +502,7 @@ def wchange(request):
         window.save()
         return JsonResponse({}, status=200)
 
-    if request.GET.get('click2', False):
+    if request.POST.get('click2', False):
         listofcheck = request.POST.get('listofcheck')
         listofcheck = listofcheck.split()
         service = Services.objects.latest('id_services')
