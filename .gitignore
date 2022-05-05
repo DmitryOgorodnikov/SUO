@@ -315,6 +315,7 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/SUO/env
 
 # Cake - Uncomment if you are using it
 # tools/**
@@ -361,5 +362,3 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
-
-/SUO/env/*
