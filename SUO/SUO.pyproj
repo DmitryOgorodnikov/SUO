@@ -81,7 +81,6 @@
     <Folder Include="SUO\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include=".gitignore" />
     <Content Include="app\static\app\content\bootstrap.min.css" />
     <Content Include="app\static\app\content\bootstrap.min - bk.css" />
     <Content Include="app\static\app\content\modal.css" />
