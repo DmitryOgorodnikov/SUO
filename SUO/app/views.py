@@ -113,6 +113,7 @@ def statistics(request):
         {
             'title':'Статистика',
             'opsname': opsname,
+            'year':datetime.now().year,
         }
     )
 
