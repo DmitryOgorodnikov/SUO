@@ -711,4 +711,5 @@ fieldset[disabled] .settings-btn {
     width: 650px;
     height: 330px;
     max-width: 80%;
+    text-align: center;
 }
