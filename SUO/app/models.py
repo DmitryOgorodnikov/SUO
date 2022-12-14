@@ -31,7 +31,7 @@ class Tickets (models.Model):
     id_window = models.ForeignKey(Windows, null=True, on_delete=models.PROTECT, verbose_name="Окно")
     operator = models.CharField(null=True, max_length=200, verbose_name="Оператор")
     name_ticket = models.CharField(max_length=50, verbose_name="Талон")
-    time_create = models.DateTimeField(auto_now_add=True, verbose_name="Время создания")
+    time_create = models.DateTimeField(verbose_name="Время создания")
     time_call = models.DateTimeField(null=True, verbose_name="Время вызова")
     time_pause = models.DurationField(default=timedelta(seconds=0), verbose_name="Время пауз")
     time_close = models.DateTimeField(null=True, verbose_name="Время закрытия")

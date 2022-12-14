@@ -85,6 +85,7 @@ def kbutton(request):
                 r = r[0:1] + ' ' + str(f'{x:03}')
         Ticket.name_ticket = r
         Ticket.status = 'Выдан'
+        Ticket.time_create = datetime.now()
         Ticket.save()
         return JsonResponse({'ticketname':r}, status=200)
 
@@ -182,6 +183,166 @@ def statisticstable(request):
         return JsonResponse({'date': date, 'listoftickets': listoftickets}, status=200)
 
 
+def statisticsw(request):
+    """Renders the kiosk page."""
+    assert isinstance(request, HttpRequest)
+    with open('config.json', 'r', encoding='utf-8-sig') as f:
+        my_json_obj = json.load(f)
+        opsname = my_json_obj[0]['name']
+    return render(
+        request,
+        'app/statisticsw.html',
+        {
+            'title':'Статистика',
+            'opsname': opsname,
+            'year':datetime.now().year,
+        }
+    )
+
+def statisticstablew(request):
+    if request.GET.get('click', False):
+        t = datetime.now().date()
+        listoftickets = []
+        tickets = Tickets.objects.filter(time_create__contains = t).order_by('id_ticket')
+        for p in tickets:
+            tc = p.time_create.time().strftime("%H:%M:%S")
+
+            if p.time_call == None:
+                tca = ''
+            else:
+                tca = p.time_call.time().strftime("%H:%M:%S")
+
+            if p.time_close == None:
+                tcl = ''
+            else:
+                tcl = p.time_close.time().strftime("%H:%M:%S")
+
+            if p.id_window == None:
+                iw = ''
+            else:
+                iw = p.id_window.id_window
+
+            if p.operator == None:
+                op = ''
+            else:
+                op = p.operator
+
+            listoftickets.append([p.name_ticket, p.service_p, p.status, tc, tca, tcl, iw, op])
+        return JsonResponse({'listoftickets': listoftickets}, status=200)
+
+    if request.GET.get('click2', False):
+        date = request.GET.get('date').split(', ')
+        date[1] = str(int(date[1]) + 1)
+        date = ("-".join(date))
+        date = (datetime.strptime(date, "%Y-%m-%d")).date()
+        listoftickets = []
+        tickets = Tickets.objects.filter(time_create__contains = date).order_by('id_ticket')
+        for p in tickets:
+            tc = p.time_create.time().strftime("%H:%M:%S")
+
+            if p.time_call == None:
+                tca = ''
+            else:
+                tca = p.time_call.time().strftime("%H:%M:%S")
+
+            if p.time_close == None:
+                tcl = ''
+            else:
+                tcl = p.time_close.time().strftime("%H:%M:%S")
+
+            if p.id_window == None:
+                iw = ''
+            else:
+                iw = p.id_window.id_window
+
+            if p.operator == None:
+                op = ''
+            else:
+                op = p.operator
+
+            listoftickets.append([p.name_ticket, p.service_p, p.status, tc, tca, tcl, iw, op])
+        return JsonResponse({'date': date, 'listoftickets': listoftickets}, status=200)
+
+def statisticsall(request):
+    """Renders the kiosk page."""
+    assert isinstance(request, HttpRequest)
+    with open('config.json', 'r', encoding='utf-8-sig') as f:
+        my_json_obj = json.load(f)
+        opsname = my_json_obj[0]['name']
+    return render(
+        request,
+        'app/statisticsall.html',
+        {
+            'title':'Статистика',
+            'opsname': opsname,
+            'year':datetime.now().year,
+        }
+    )
+
+def statisticstableall(request):
+    if request.GET.get('click', False):
+        t = datetime.now().date()
+        listoftickets = []
+        tickets = Tickets.objects.filter(time_create__contains = t).order_by('id_ticket')
+        for p in tickets:
+            tc = p.time_create.time().strftime("%H:%M:%S")
+
+            if p.time_call == None:
+                tca = ''
+            else:
+                tca = p.time_call.time().strftime("%H:%M:%S")
+
+            if p.time_close == None:
+                tcl = ''
+            else:
+                tcl = p.time_close.time().strftime("%H:%M:%S")
+
+            if p.id_window == None:
+                iw = ''
+            else:
+                iw = p.id_window.id_window
+
+            if p.operator == None:
+                op = ''
+            else:
+                op = p.operator
+
+            listoftickets.append([p.name_ticket, p.service_p, p.status, tc, tca, tcl, iw, op])
+        return JsonResponse({'listoftickets': listoftickets}, status=200)
+
+    if request.GET.get('click2', False):
+        date = request.GET.get('date').split(', ')
+        date[1] = str(int(date[1]) + 1)
+        date = ("-".join(date))
+        date = (datetime.strptime(date, "%Y-%m-%d")).date()
+        listoftickets = []
+        tickets = Tickets.objects.filter(time_create__contains = date).order_by('id_ticket')
+        for p in tickets:
+            tc = p.time_create.time().strftime("%H:%M:%S")
+
+            if p.time_call == None:
+                tca = ''
+            else:
+                tca = p.time_call.time().strftime("%H:%M:%S")
+
+            if p.time_close == None:
+                tcl = ''
+            else:
+                tcl = p.time_close.time().strftime("%H:%M:%S")
+
+            if p.id_window == None:
+                iw = ''
+            else:
+                iw = p.id_window.id_window
+
+            if p.operator == None:
+                op = ''
+            else:
+                op = p.operator
+
+            listoftickets.append([p.name_ticket, p.service_p, p.status, tc, tca, tcl, iw, op])
+        return JsonResponse({'date': date, 'listoftickets': listoftickets}, status=200)
+
 @login_required
 def windows(request):
     if (Windows.objects.filter(id = request.user).exists() != False):
@@ -226,6 +387,7 @@ def operator(request):
     """Renders the operator page."""
     assert isinstance(request, HttpRequest)
     window_id = request.session.get('window_id')
+    form = WindowsAuthenticationForm()
     return render(
         request,
         'app/operator.html',
@@ -233,6 +395,7 @@ def operator(request):
             'title':'Оператор',
             'year':datetime.now().year,
             'window_id': window_id,
+            'form':form,
         }
     )
 
@@ -255,7 +418,36 @@ def nextbutton(request):
             if ser['status'] == True:
                 services.append(ser['rusname'])
 
-        if (Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = None).filter(service_p__in = services).exists() == False) and (Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = request.session.get('window_id')).filter(service_p__in = services).exists() == False):
+        if (Tickets.objects.filter(time_close = None).filter(id_window = request.session.get('window_id')).filter(status = 'Перенаправлен')):
+
+            if (Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = request.session.get('window_id')).exists() == True) and (request.session.get('Ticket_n') != None):
+                id=request.session.get('Ticket_n')
+                Ticket = Tickets.objects.get(id_ticket=request.session.get('Ticket_n'))
+                Ticket.time_close = datetime.now()
+                Ticket.status = 'Закрыт'
+                Ticket.operator = request.user.last_name + ' (' + request.user.username + ')'
+                Ticket.save()
+
+            window_id = request.session.get('window_id')
+            Ticket = Tickets.objects.filter(time_close = None).filter(id_window = request.session.get('window_id')).earliest('id_ticket')
+            Ticket.id_window = Windows.objects.get(id_window=window_id)
+            Ticket.time_call = datetime.now()
+            Ticket.status = 'Вызван'
+            Ticket.operator = request.user.last_name + ' (' + request.user.username + ')'
+            Ticket.save()
+            ticket = 'Текущий талон: ' + Ticket.name_ticket
+            service = 'Услуга: ' + Ticket.service_p
+            request.session['ticket'] = ticket
+            request.session['Ticket_n'] = Ticket.id_ticket
+
+            time = Ticket.time_call
+            hour = time.hour
+            minute = time.minute
+            second = time.second
+
+            return JsonResponse({"ticket": ticket, 'service': service, "hour": hour, "minute": minute, "second": second}, status=200)
+
+        elif (Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = None).filter(service_p__in = services).exists() == False) and (Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = request.session.get('window_id')).filter(service_p__in = services).exists() == False):
             ticket = 'Текущий талон: Нет талонов в очереди'
             service = 'Услуга:'
             request.session['ticket'] = ticket
@@ -376,6 +568,55 @@ def breakbutton(request):
 
         return JsonResponse({"ticket": ticket, 'service': service, "hour": hour, "minute": minute, "second": second}, status=200)
 
+def redirectbutton(request):
+    if request.POST.get('click', False):
+        windows_l = []
+        for l in Windows.objects.exclude(id = None).exclude(id_window = request.session.get('window_id')).values_list('id_window').order_by('id_window'):
+            windows_l.append(l[0])
+
+        return JsonResponse({"windows_l": windows_l}, status=200)
+
+def redbutton(request):
+    t = datetime.now().date()
+    red_window_id = request.POST.get("name")
+    if request.POST.get('click', False):
+        service = Windows.objects.get(id_window = request.session.get('window_id')).services
+        services = []
+        for ser in service:
+            if ser['status'] == True:
+                services.append(ser['rusname'])
+
+        id=request.session.get('Ticket_n')
+        Ticket = Tickets.objects.get(id_ticket=request.session.get('Ticket_n'))
+        Ticket.id_window = Windows.objects.get(id_window=red_window_id)
+        Ticket.status = 'Перенаправлен'
+        Ticket.save()
+
+        if Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = None).filter(service_p__in = services).exists() == False:
+            ticket = 'Текущий талон: Нет талонов в очереди'
+            service = 'Услуга:'
+            request.session['ticket'] = ticket
+            request.session['Ticket_n'] = None
+            return JsonResponse({"ticket": ticket, 'service': service}, status=200)
+
+        window_id = request.session.get('window_id')
+        Ticket = Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(service_p__in = services).filter(id_window = None).filter(service_p__in = services).earliest('id_ticket')
+        Ticket.id_window = Windows.objects.get(id_window=window_id)
+        Ticket.time_call = datetime.now()
+        Ticket.status = 'Вызван'
+        Ticket.operator = request.user.last_name + ' (' + request.user.username + ')'
+        Ticket.save()
+        ticket = 'Текущий талон: ' + Ticket.name_ticket
+        service = 'Услуга: ' + Ticket.service_p
+        request.session['ticket'] = ticket
+        request.session['Ticket_n'] = Ticket.id_ticket
+
+        time = Ticket.time_call
+        hour = time.hour
+        minute = time.minute
+        second = time.second
+
+        return JsonResponse({"ticket": ticket, 'service': service, "hour": hour, "minute": minute, "second": second}, status=200)
 
 
 @login_required

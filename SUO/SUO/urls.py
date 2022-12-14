@@ -52,6 +52,9 @@ urlpatterns = [
          name='tickets'),
     path('statistics/', views.statistics, name='statistics'),
     path('statistics/statisticstable', views.statisticstable, name='statisticstable'),
+    path('statisticsw/', views.statisticsw, name='statisticsw'),
+    path('statisticsw/statisticstablew', views.statisticstablew, name='statisticstablew'),
+    path('statisticsall/', views.statisticsall, name='statisticsall'),
     path('windows/login/', views.windows, name='windows'),
     path('windows/login/windowbutton', views.windowbutton, name='windowbutton'),
     path('windows/operator/', views.operator, name='operator'),
@@ -59,6 +62,8 @@ urlpatterns = [
     path('windows/operator/nextbutton', views.nextbutton, name='nextbutton'),
     path('windows/operator/cancelbutton', views.cancelbutton, name='cancelbutton'),
     path('windows/operator/breakbutton', views.breakbutton, name='breakbutton'),
+    path('windows/operator/redirectbutton', views.redirectbutton, name='redirectbutton'),
+    path('windows/operator/redbutton', views.redbutton, name='redbutton'),
     path('login/',
          LoginView.as_view
          (

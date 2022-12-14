@@ -91,6 +91,7 @@
     <Content Include="app\static\app\scripts\kiosk.js" />
     <Content Include="app\static\app\scripts\modal.js" />
     <Content Include="app\static\app\scripts\operator.js" />
+    <Content Include="app\static\app\scripts\statisticsw.js" />
     <Content Include="app\static\app\scripts\statistics.js" />
     <Content Include="app\static\app\scripts\settingsw.js" />
     <Content Include="app\static\app\scripts\settings.js" />
@@ -106,6 +107,8 @@
     <Content Include="app\templates\app\settingsw.html" />
     <Content Include="app\templates\app\settings.html" />
     <Content Include="app\templates\app\kiosk.html" />
+    <Content Include="app\templates\app\statisticsall.html" />
+    <Content Include="app\templates\app\statisticsw.html" />
     <Content Include="app\templates\app\tickets.html" />
     <Content Include="requirements.txt" />
     <Content Include="db.sqlite3" />

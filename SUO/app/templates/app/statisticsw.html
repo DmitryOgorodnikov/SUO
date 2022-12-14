@@ -19,8 +19,8 @@
 </nav>
 <div class="windows-div">
     <div class="statistics-div-chld">
-        <p class="index-center"><a class="settings-btn btn-def" href="{% url 'statistics' %}"> Талоны </a></p>
-        <p class="index-center"><a class="settings-btn" href="{% url 'statisticsw' %}">Окна</a></p>
+        <p class="index-center"><a class="settings-btn" href="{% url 'statistics' %}"> Талоны </a></p>
+        <p class="index-center"><a class="settings-btn btn-def" href="{% url 'statisticsw' %}">Окна</a></p>
         <p class="index-center"><a class="settings-btn" href="{% url 'statisticsall' %}">Свод</a></p>
         <p class="index-center"><a class="settings-btn return-btn" href="{% url 'home' %}">Вернуться</a></p>
     </div>
@@ -42,7 +42,7 @@
 {% block scripts %}
 
     {% load staticfiles %}
-    <script src="{% static 'app/scripts/statistics.js' %}"></script>
+    <script src="{% static 'app/scripts/statisticsw.js' %}"></script>
     <script src="{% static 'app/scripts/myset.js'%}"> </script>
 
 {% endblock %}

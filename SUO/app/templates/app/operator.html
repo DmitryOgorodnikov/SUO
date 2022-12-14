@@ -38,12 +38,24 @@
                 <input class="windows-btn operator-btn" type="button" value="Следующий" id="Next">
                 <input class="windows-btn operator-btn windows-btn-hidden" type="button" value="Повторный вызов" id="Replay" disabled>
                 <input class="windows-btn operator-btn" type="button" value="Клиент не подошел" id="Cancel" disabled>
-                <input class="windows-btn operator-btn windows-btn-hidden" type="button" value="Отложить" id="Cancel" disabled>
-                <input class="windows-btn operator-btn windows-btn-hidden" type="button" value="Перенаправить" id="Redirect" disabled>
+                <input class="windows-btn operator-btn windows-btn-hidden" type="button" value="Отложить" id="Delay" disabled>
+                <input class="windows-btn operator-btn" type="button" value="Перенаправить" id="Redirect" disabled>
                 <input class="windows-btn operator-btn windows-btn-hidden" type="button" value="Вызов по номеру" id="CallingBN">
                 <input class="windows-btn operator-btn" type="button" value="Перерыв" id="Break" disabled>
             </form>
         </div>
+    </div>
+</div>
+
+<div class="hystmodal" id="myModal">
+    <div class="hystmodal__window">
+        <form method="POST" class="selects">
+            <h1>Выберите окно на которое хотите перенаправить текущий талон</h1>
+            {% csrf_token %}
+            {{ form }}
+            <input class="windows-btn" type="button" value="Отправить" id="Red" >
+            <input class="windows-btn" type="button" value="Отмена" id="Can" >
+        </form>
     </div>
 </div>
 

@@ -34,6 +34,47 @@ $('#Cancel').click(function () {
     });
 });
 
+$('#Redirect').click(function () {
+    $.ajax({
+        url: "redirectbutton",
+        method: 'POST',
+        data: {
+            click: true
+        },
+        success: function (response) {
+            $('#myModal').css('display', 'flex');
+            $('#id_id_window option').remove();
+            for (var i = 0; i < response.windows_l.length; i++) {
+                $('#id_id_window').prepend('<option value="' + (i + 1) + '">' + response.windows_l[i] + '</option>');
+            }
+        }
+    });
+});
+
+$('#Can').click(function () {
+    $('#myModal').css('display', 'none');
+});
+
+$('#Red').click(function () {
+    $.ajax({
+        url: "redbutton",
+        method: 'POST',
+        data: {
+            name: $('select option:selected').text(),
+            click: true
+        },
+        success: function (response) {
+            $('#myModal').css('display', 'none');
+            $('#ta').text(response.ticket);
+            $('#tb').text(response.service);
+            localStorage.setItem('ticket', response.ticket)
+            localStorage.setItem('hour', response.hour)
+            localStorage.setItem('minute', response.minute)
+            localStorage.setItem('second', response.second)
+            }
+    });
+});
+
 $('#Break').click(function () {
     $.ajax({
         url: "breakbutton",
@@ -82,6 +123,7 @@ $('#Logout').click(function () {
     });
 });
 
+
 let id = setInterval(update, 500);
 function update() {
     var date = new Date()
@@ -97,7 +139,7 @@ function update() {
     if (seconds < 10) seconds = '0' + seconds
     if (isNaN(seconds)) {
         $('#time').css('visibility', 'hidden');
-        $('#Replay, #Cancel, #Break').attr('disabled', true);
+        $('#Replay, #Cancel, #Break, #Redirect').attr('disabled', true);
     }
     document.getElementById('sec').innerHTML = seconds
 
@@ -116,10 +158,10 @@ function update() {
     if (hours === '00' && minutes === '00') {
         $('#time').css('visibility', 'visible');
         if (localStorage.getItem('ticket').search('Перерыв') !== -1) {
-            $('#Replay, #Cancel, #Break').attr('disabled', true);
+            $('#Replay, #Cancel, #Break, #Redirect').attr('disabled', true);
         }
         else {
-            $('#Replay, #Cancel, #Break').removeAttr('disabled');
+            $('#Replay, #Cancel, #Break, #Redirect').removeAttr('disabled');
         }
     }
 
