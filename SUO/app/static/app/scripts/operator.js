@@ -34,6 +34,47 @@ $('#Cancel').click(function () {
     });
 });
 
+$('#Delay').click(function () {
+    if (!$('#Delay').hasClass('return')) {
+        $.ajax({
+            url: "delaybutton",
+            method: 'POST',
+            data: {
+                click: true
+            },
+            success: function (response) {
+                $('#Delay').addClass('return')
+                $('#Delay').attr("value", "Вернуть талон " + response.ticket_r);
+                $('#ta').text(response.ticket);
+                $('#tb').text(response.service);
+                localStorage.setItem('ticket', response.ticket)
+                localStorage.setItem('hour', response.hour)
+                localStorage.setItem('minute', response.minute)
+                localStorage.setItem('second', response.second)
+            }
+        });
+    }
+    else {
+        $.ajax({
+            url: "returnbutton",
+            method: 'POST',
+            data: {
+                click: true
+            },
+            success: function (response) {
+                $('#Delay').removeClass('return')
+                $('#Delay').attr("value", "Отложить");
+                $('#ta').text(response.ticket);
+                $('#tb').text(response.service);
+                localStorage.setItem('ticket', response.ticket)
+                localStorage.setItem('hour', response.hour)
+                localStorage.setItem('minute', response.minute)
+                localStorage.setItem('second', response.second)
+            }
+        });
+    }
+});
+
 $('#Redirect').click(function () {
     $.ajax({
         url: "redirectbutton",
@@ -161,8 +202,12 @@ function update() {
             $('#Replay, #Cancel, #Break, #Redirect').attr('disabled', true);
         }
         else {
-            $('#Replay, #Cancel, #Break, #Redirect').removeAttr('disabled');
+            $('#Replay, #Cancel, #Break, #Redirect, #Delay').removeAttr('disabled');
         }
+    }
+
+    if ($('#Delay').attr("value") == 'Отложить' && $('#ta').text() == 'Текущий талон: Нет талонов в очереди') {
+        $('#Delay').attr('disabled', true);
     }
 
 }

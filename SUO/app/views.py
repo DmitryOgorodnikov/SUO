@@ -568,6 +568,74 @@ def breakbutton(request):
 
         return JsonResponse({"ticket": ticket, 'service': service, "hour": hour, "minute": minute, "second": second}, status=200)
 
+def delaybutton(request):
+    t = datetime.now().date()
+    if request.POST.get('click', False):
+        service = Windows.objects.get(id_window = request.session.get('window_id')).services
+        services = []
+        for ser in service:
+            if ser['status'] == True:
+                services.append(ser['rusname'])
+
+        Ticket = (Tickets.objects.filter(id_ticket=request.session.get('Ticket_n')))[0]
+        Ticket.status = 'Отложен'
+        ticket_r = Ticket.name_ticket
+        Ticket.save()
+
+        if Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = None).filter(service_p__in = services).exists() == False:
+            ticket = 'Текущий талон: Нет талонов в очереди'
+            service = 'Услуга: '
+            request.session['ticket'] = ticket
+            request.session['Ticket_n'] = None
+            return JsonResponse({"ticket": ticket, 'service': service, "ticket_r": ticket_r}, status=200)
+
+        window_id = request.session.get('window_id')
+        Ticket = Tickets.objects.filter(time_create__contains = t).filter(time_close = None).filter(id_window = None).filter(service_p__in = services).earliest('id_ticket')
+        Ticket.id_window = Windows.objects.get(id_window=window_id)
+        Ticket.time_call = datetime.now()
+        Ticket.status = 'Вызван'
+        Ticket.operator = request.user.last_name + ' (' + request.user.username + ')'
+        Ticket.save()
+        ticket = 'Текущий талон: ' + Ticket.name_ticket
+        service = 'Услуга: ' + Ticket.service_p
+        request.session['ticket'] = ticket
+        request.session['Ticket_n'] = Ticket.id_ticket
+
+        time = Ticket.time_call
+        hour = time.hour
+        minute = time.minute
+        second = time.second
+
+        return JsonResponse({"ticket": ticket, 'service': service, "hour": hour, "minute": minute, "second": second, "ticket_r": ticket_r}, status=200)
+
+
+def returnbutton(request):
+    t = datetime.now().date()
+    if request.POST.get('click', False):
+        service = Windows.objects.get(id_window = request.session.get('window_id')).services
+        services = []
+        for ser in service:
+            if ser['status'] == True:
+                services.append(ser['rusname'])
+
+        window_id = request.session.get('window_id')
+        Ticket = Tickets.objects.filter(status = 'Отложен').filter(id_window = window_id).earliest('id_ticket')
+        Ticket.time_pause += datetime.now() - Ticket.time_call.replace(tzinfo=None)
+        Ticket.time_call = datetime.now()
+        Ticket.status = 'Вызван'
+        Ticket.save()
+        ticket = 'Текущий талон: ' + Ticket.name_ticket
+        service = 'Услуга: ' + Ticket.service_p
+        request.session['ticket'] = ticket
+        request.session['Ticket_n'] = Ticket.id_ticket
+
+        time = Ticket.time_call
+        hour = time.hour
+        minute = time.minute
+        second = time.second
+
+        return JsonResponse({"ticket": ticket, 'service': service, "hour": hour, "minute": minute, "second": second}, status=200)
+
 def redirectbutton(request):
     if request.POST.get('click', False):
         windows_l = []
