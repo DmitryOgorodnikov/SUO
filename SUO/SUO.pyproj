@@ -4,7 +4,7 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <Name>SUO</Name>
     <RootNamespace>SUO</RootNamespace>
-    <InterpreterId>MSBuild|env1|$(MSBuildProjectFullPath)</InterpreterId>
+    <InterpreterId>MSBuild|env|$(MSBuildProjectFullPath)</InterpreterId>
     <WebBrowserPort>8000</WebBrowserPort>
     <SuppressConfigureTestFrameworkPrompt>true</SuppressConfigureTestFrameworkPrompt>
   </PropertyGroup>
@@ -92,6 +92,7 @@
     <Content Include="app\static\app\scripts\kiosk.js" />
     <Content Include="app\static\app\scripts\modal.js" />
     <Content Include="app\static\app\scripts\operator.js" />
+    <Content Include="app\static\app\scripts\statisticsall.js" />
     <Content Include="app\static\app\scripts\statisticsw.js" />
     <Content Include="app\static\app\scripts\statistics.js" />
     <Content Include="app\static\app\scripts\settingsw.js" />

@@ -55,6 +55,7 @@ urlpatterns = [
     path('statisticsw/', views.statisticsw, name='statisticsw'),
     path('statisticsw/statisticstablew', views.statisticstablew, name='statisticstablew'),
     path('statisticsall/', views.statisticsall, name='statisticsall'),
+    path('statisticsall/statisticstableall', views.statisticstableall, name='statisticstableall'),
     path('windows/login/', views.windows, name='windows'),
     path('windows/login/windowbutton', views.windowbutton, name='windowbutton'),
     path('windows/operator/', views.operator, name='operator'),

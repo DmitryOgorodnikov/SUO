@@ -30,9 +30,13 @@
                 <table class="buttontable">
 
                 </table>
-                <table class="stattable">
+                <table class="stattable" id="TableToExport">
 
                 </table>
+            </form>
+            <form id="csrf" action="" method="POST">
+                {% csrf_token %}
+                <input type="button" id="sheetjsexport" value="Выгрузить в Excel" class="settings-btn settings-btn-excel" id="export">
             </form>
     </div>
 </div>

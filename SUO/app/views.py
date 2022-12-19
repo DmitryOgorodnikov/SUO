@@ -7,6 +7,7 @@ from django.shortcuts import render, render_to_response
 from django.views.generic.list import ListView
 from django.http import HttpRequest, HttpResponseRedirect, HttpResponse, JsonResponse
 from .models import Tickets, Windows, Services
+from tablib import Dataset
 from django.template import Template, RequestContext
 from .forms import UserRegistrationForm, UserChangeForm, WindowsAuthenticationForm
 from django.contrib.auth.models import User
@@ -23,8 +24,20 @@ import re
 import json
 import codecs
 from django.views.decorators.csrf import csrf_exempt
+from django.db.models import Avg, F
+from datetime import timedelta
 
 from django.views.generic import DetailView
+
+
+class AvgTimeDelta(Avg):
+
+    def convert_value(self, value, expression, connection, context):
+        if value is None:
+            return value
+        if isinstance(value, timedelta):
+            value = value.total_seconds()
+        return float(value)
 
 def kiosk(request):
     """Renders the kiosk page."""
@@ -202,66 +215,34 @@ def statisticsw(request):
 def statisticstablew(request):
     if request.GET.get('click', False):
         t = datetime.now().date()
-        listoftickets = []
-        tickets = Tickets.objects.filter(time_create__contains = t).order_by('id_ticket')
-        for p in tickets:
-            tc = p.time_create.time().strftime("%H:%M:%S")
-
-            if p.time_call == None:
-                tca = ''
-            else:
-                tca = p.time_call.time().strftime("%H:%M:%S")
-
-            if p.time_close == None:
-                tcl = ''
-            else:
-                tcl = p.time_close.time().strftime("%H:%M:%S")
-
-            if p.id_window == None:
-                iw = ''
-            else:
-                iw = p.id_window.id_window
-
-            if p.operator == None:
-                op = ''
-            else:
-                op = p.operator
-
-            listoftickets.append([p.name_ticket, p.service_p, p.status, tc, tca, tcl, iw, op])
-        return JsonResponse({'listoftickets': listoftickets}, status=200)
+        nw = []
+        tc = []
+        at = []
+        tl = Tickets.objects.filter(time_create__contains = t).distinct('id_window')
+        for p in tl:
+            nw.append (p.id_window_id)
+        for p in nw:
+            tc.append (Tickets.objects.filter(time_create__contains = t).filter(id_window = p).count())
+            temp = Tickets.objects.filter(time_create__contains = t).filter(id_window = p).aggregate(average_difference=AvgTimeDelta(F('time_close') - F('time_call')))
+            at.append (round(temp.get('average_difference')))
+        return JsonResponse({'nw': nw,'tc': tc, 'at': at}, status=200)
 
     if request.GET.get('click2', False):
         date = request.GET.get('date').split(', ')
         date[1] = str(int(date[1]) + 1)
         date = ("-".join(date))
         date = (datetime.strptime(date, "%Y-%m-%d")).date()
-        listoftickets = []
-        tickets = Tickets.objects.filter(time_create__contains = date).order_by('id_ticket')
-        for p in tickets:
-            tc = p.time_create.time().strftime("%H:%M:%S")
-
-            if p.time_call == None:
-                tca = ''
-            else:
-                tca = p.time_call.time().strftime("%H:%M:%S")
-
-            if p.time_close == None:
-                tcl = ''
-            else:
-                tcl = p.time_close.time().strftime("%H:%M:%S")
-
-            if p.id_window == None:
-                iw = ''
-            else:
-                iw = p.id_window.id_window
-
-            if p.operator == None:
-                op = ''
-            else:
-                op = p.operator
-
-            listoftickets.append([p.name_ticket, p.service_p, p.status, tc, tca, tcl, iw, op])
-        return JsonResponse({'date': date, 'listoftickets': listoftickets}, status=200)
+        nw = []
+        tc = []
+        at = []
+        tl = Tickets.objects.filter(time_create__contains = date).distinct('id_window')
+        for p in tl:
+            nw.append (p.id_window_id)
+        for p in nw:
+            tc.append (Tickets.objects.filter(time_create__contains = date).filter(id_window = p).count())
+            temp = Tickets.objects.filter(time_create__contains = date).filter(id_window = p).aggregate(average_difference=AvgTimeDelta(F('time_close') - F('time_call')))
+            at.append (round(temp.get('average_difference')))
+        return JsonResponse({'date': date, 'nw': nw,'tc': tc, 'at': at}, status=200)
 
 def statisticsall(request):
     """Renders the kiosk page."""
@@ -281,67 +262,39 @@ def statisticsall(request):
 
 def statisticstableall(request):
     if request.GET.get('click', False):
+
+        service = Windows.objects.get(id_window = request.session.get('window_id')).services
+        services = []
+        for ser in service:
+            if ser['status'] == True:
+                services.append(ser['rusname'])
         t = datetime.now().date()
-        listoftickets = []
-        tickets = Tickets.objects.filter(time_create__contains = t).order_by('id_ticket')
-        for p in tickets:
-            tc = p.time_create.time().strftime("%H:%M:%S")
 
-            if p.time_call == None:
-                tca = ''
-            else:
-                tca = p.time_call.time().strftime("%H:%M:%S")
+        nt = []
+        nt.append (Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '01').count())
+        nt.append (Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '02').count())
+        nt.append (Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '03').count())
+        nt.append (Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '04').count())
+        nt.append (Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '05').count())
+        nt.append (Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '06').count())
+        nt.append (Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '07').count())
+        nt.append (Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '08').count())
+        nt.append( Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '09').count())
+        nt.append (Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '10').count())
+        nt.append (Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '11').count())
+        nt.append (Tickets.objects.filter(time_create__year = '2022').filter(time_create__month = '12').count())
+        
+        stc = []
+        stat = []
+        for s in services:
+           stc.append (Tickets.objects.filter(time_create__contains = '2022').filter(service_p=s).count())
+           temp = Tickets.objects.filter(time_create__contains = '2022').filter(service_p=s).aggregate(average_difference=AvgTimeDelta(F('time_close') - F('time_call')))
+           if temp.get('average_difference') == None:
+               stat.append (0)
+           else:
+               stat.append (round(temp.get('average_difference')))
 
-            if p.time_close == None:
-                tcl = ''
-            else:
-                tcl = p.time_close.time().strftime("%H:%M:%S")
-
-            if p.id_window == None:
-                iw = ''
-            else:
-                iw = p.id_window.id_window
-
-            if p.operator == None:
-                op = ''
-            else:
-                op = p.operator
-
-            listoftickets.append([p.name_ticket, p.service_p, p.status, tc, tca, tcl, iw, op])
-        return JsonResponse({'listoftickets': listoftickets}, status=200)
-
-    if request.GET.get('click2', False):
-        date = request.GET.get('date').split(', ')
-        date[1] = str(int(date[1]) + 1)
-        date = ("-".join(date))
-        date = (datetime.strptime(date, "%Y-%m-%d")).date()
-        listoftickets = []
-        tickets = Tickets.objects.filter(time_create__contains = date).order_by('id_ticket')
-        for p in tickets:
-            tc = p.time_create.time().strftime("%H:%M:%S")
-
-            if p.time_call == None:
-                tca = ''
-            else:
-                tca = p.time_call.time().strftime("%H:%M:%S")
-
-            if p.time_close == None:
-                tcl = ''
-            else:
-                tcl = p.time_close.time().strftime("%H:%M:%S")
-
-            if p.id_window == None:
-                iw = ''
-            else:
-                iw = p.id_window.id_window
-
-            if p.operator == None:
-                op = ''
-            else:
-                op = p.operator
-
-            listoftickets.append([p.name_ticket, p.service_p, p.status, tc, tca, tcl, iw, op])
-        return JsonResponse({'date': date, 'listoftickets': listoftickets}, status=200)
+        return JsonResponse({'nt': nt, 'stc': stc, 'services': services, 'stat': stat}, status=200)
 
 @login_required
 def windows(request):

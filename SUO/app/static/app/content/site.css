@@ -91,7 +91,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 .windows-div {
-    height: 600px;
+    min-height: 700px;
     position: relative;
 }
 
@@ -389,6 +389,11 @@ input[type="checkbox"].input-validation-error {
     -ms-user-select: none;
     -o-user-select: none;
     user-select: none;
+}
+
+.settings-btn-excel{
+    width: 145px;
+    margin-top: 10px;
 }
 
 .button-a {
